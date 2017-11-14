@@ -20,9 +20,10 @@ module Text.MMark.Extension.Common
 where
 
 import Data.List.NonEmpty (NonEmpty (..))
+import Data.Maybe (maybeToList)
 import Data.Text (Text)
 import Text.MMark
-import Text.MMark.Extension (Block (..), Inline (..))
+import Text.MMark.Extension (Bni, Block (..), Inline (..))
 import qualified Control.Foldl        as L
 import qualified Data.List.NonEmpty   as NE
 import qualified Text.MMark.Extension as Ext
@@ -43,7 +44,7 @@ newtype Toc = Toc [(Int, NonEmpty Inline)]
 tocScanner
   :: Int -- ^ Up to which level (inclusive) to collect headers? Values from
          -- 2 to 6 make sense here.
-  -> L.Fold (Block (NonEmpty Inline)) Toc
+  -> L.Fold Bni Toc
 tocScanner cutoff = fmap (Toc . reverse) . Ext.scanner [] $ \xs block ->
   case block of
     Heading2 x -> f 2 x xs
@@ -71,6 +72,19 @@ toc label (Toc xs) = Ext.blockTrans $ \case
       Nothing -> old
       Just ns ->
         if mlabel == pure label
-          then TightUnorderedList $ snd <$> ns -- FIXME
+          then renderToc ns
           else old
   other -> other
+
+-- | Construct 'Bni' for a table of contents from given collection of
+-- headers. This is a non-public helper.
+
+renderToc :: NonEmpty (Int, NonEmpty Inline) -> Bni
+renderToc = UnorderedList . NE.unfoldr f
+  where
+    f ((n,x) :| xs) =
+      let (sitems, fitems) = span ((> n) . fst) xs
+          url = Ext.headerFragment (Ext.headerId x)
+      in ( Naked (Link x url Nothing :| [])
+           : maybeToList (renderToc <$> NE.nonEmpty sitems)
+         , NE.nonEmpty fitems )
