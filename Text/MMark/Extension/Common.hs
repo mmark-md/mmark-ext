@@ -21,8 +21,8 @@ module Text.MMark.Extension.Common
   , tocScanner
   , toc
     -- * Punctuation prettifier
-  , Punct (..)
-  , punct )
+  , Punctuation (..)
+  , punctuationPrettifier )
 where
 
 import Data.Data (Data)
@@ -105,7 +105,7 @@ renderToc = UnorderedList . NE.unfoldr f
 
 -- | Settings for the punctuation-prettifying extension.
 
-data Punct = Punct
+data Punctuation = Punctuation
   { punctEnDash :: !Bool
     -- ^ Whether to replace double hyphen @--@ by an en dash @–@ (default:
     -- 'True')
@@ -114,15 +114,15 @@ data Punct = Punct
     -- 'True')
   } deriving (Eq, Ord, Show, Read, Data, Typeable, Generic)
 
-instance Default Punct where
-  def = Punct
+instance Default Punctuation where
+  def = Punctuation
     { punctEnDash = True
     , punctEmDash = True }
 
--- | Prettify punctuation according to the settings in 'Punct'.
+-- | Prettify punctuation according to the settings in 'Punctuation'.
 
-punct :: Punct -> Extension
-punct Punct {..} = Ext.inlineTrans $ \case
+punctuationPrettifier :: Punctuation -> Extension
+punctuationPrettifier Punctuation {..} = Ext.inlineTrans $ \case
   Plain txt -> Plain
     . f punctEnDash (T.replace "--"  "–")
     . f punctEmDash (T.replace "---" "—")
