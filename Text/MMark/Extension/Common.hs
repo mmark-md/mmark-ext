@@ -22,22 +22,26 @@ module Text.MMark.Extension.Common
   , toc
     -- * Punctuation prettifier
   , Punctuation (..)
-  , punctuationPrettifier )
+  , punctuationPrettifier
+    -- * Email address obfuscation
+  , obfuscateEmail )
 where
 
 import Data.Data (Data)
 import Data.Default.Class
 import Data.List.NonEmpty (NonEmpty (..))
-import Data.Maybe (maybeToList)
+import Data.Maybe (maybeToList, fromJust)
 import Data.Text (Text)
 import Data.Typeable (Typeable)
 import GHC.Generics
+import Lucid
 import Text.MMark
 import Text.MMark.Extension (Bni, Block (..), Inline (..))
 import qualified Control.Foldl        as L
 import qualified Data.List.NonEmpty   as NE
 import qualified Data.Text            as T
 import qualified Text.MMark.Extension as Ext
+import qualified Text.URI             as URI
 
 ----------------------------------------------------------------------------
 -- Table of contents
@@ -130,3 +134,41 @@ punctuationPrettifier Punctuation {..} = Ext.inlineTrans $ \case
   other -> other
   where
     f b g = if b then g else id
+
+----------------------------------------------------------------------------
+-- Email address obfuscation
+
+-- | This extension makes email addresses in links be rendered as something
+-- like this:
+--
+-- > <a class="protected-email"
+-- >    data-email="something@example.org"
+-- >    href="javascript:void(0)">Enable JavaScript to see the email</a>
+--
+-- You'll also need to include jQuery and this bit of JS code:
+--
+-- > $(document).ready(function () {
+-- >     $(".protected-email").each(function () {
+-- >         var item = $(this);
+-- >         var email = item.data('email');
+-- >         item.attr('href', 'mailto:' + email);
+-- >         item.html(email);
+-- >     });
+-- > });
+
+obfuscateEmail
+  :: Text
+     -- ^ Name of class to assign to the links, e.g. @\"protected-email\"@
+  -> Extension
+obfuscateEmail class' = Ext.inlineRender $ \old inline ->
+  case inline of
+    l@(Link _ email mtitle) ->
+      if URI.uriScheme email == URI.mkScheme "mailto"
+        then let txt = Plain "Enable JavaScript to see the email" :| []
+                 js  = fromJust (URI.mkURI "javascript:void(0)")
+             in with (old (Link txt js mtitle))
+                  [ class_ class'
+                  , data_ "email"
+                    (URI.render email { URI.uriScheme = Nothing }) ]
+        else old l
+    other -> old other
