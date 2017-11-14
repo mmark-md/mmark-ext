@@ -3,7 +3,7 @@ packages:
 - '.'
 - location:
     git: https://github.com/mrkkrp/mmark.git
-    commit: bffdf4c40ca2399f443f337d22f8971b8a5e8d99
+    commit: 7a08a66527cbbcbed4a6437a1be760b485442652
   extra-dep: true
 extra-deps:
 - megaparsec-6.2.0

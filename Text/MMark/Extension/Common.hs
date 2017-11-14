@@ -9,23 +9,34 @@
 --
 -- Commonly useful extensions for MMark markdown processor.
 
-{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric      #-}
+{-# LANGUAGE LambdaCase         #-}
+{-# LANGUAGE OverloadedStrings  #-}
+{-# LANGUAGE RecordWildCards    #-}
 
 module Text.MMark.Extension.Common
   ( -- * Table of contents
     Toc
   , tocScanner
   , toc
-  )
+    -- * Punctuation prettifier
+  , Punct (..)
+  , punct )
 where
 
+import Data.Data (Data)
+import Data.Default.Class
 import Data.List.NonEmpty (NonEmpty (..))
 import Data.Maybe (maybeToList)
 import Data.Text (Text)
+import Data.Typeable (Typeable)
+import GHC.Generics
 import Text.MMark
 import Text.MMark.Extension (Bni, Block (..), Inline (..))
 import qualified Control.Foldl        as L
 import qualified Data.List.NonEmpty   as NE
+import qualified Data.Text            as T
 import qualified Text.MMark.Extension as Ext
 
 ----------------------------------------------------------------------------
@@ -88,3 +99,34 @@ renderToc = UnorderedList . NE.unfoldr f
       in ( Naked (Link x url Nothing :| [])
            : maybeToList (renderToc <$> NE.nonEmpty sitems)
          , NE.nonEmpty fitems )
+
+----------------------------------------------------------------------------
+-- Punctuation prettifier
+
+-- | Settings for the punctuation-prettifying extension.
+
+data Punct = Punct
+  { punctEnDash :: !Bool
+    -- ^ Whether to replace double hyphen @--@ by an en dash @–@ (default:
+    -- 'True')
+  , punctEmDash :: !Bool
+    -- ^ Whether to replace triple hyphen @---@ by an em dash @—@ (default:
+    -- 'True')
+  } deriving (Eq, Ord, Show, Read, Data, Typeable, Generic)
+
+instance Default Punct where
+  def = Punct
+    { punctEnDash = True
+    , punctEmDash = True }
+
+-- | Prettify punctuation according to the settings in 'Punct'.
+
+punct :: Punct -> Extension
+punct Punct {..} = Ext.inlineTrans $ \case
+  Plain txt -> Plain
+    . f punctEnDash (T.replace "--"  "–")
+    . f punctEmDash (T.replace "---" "—")
+    $ txt
+  other -> other
+  where
+    f b g = if b then g else id
