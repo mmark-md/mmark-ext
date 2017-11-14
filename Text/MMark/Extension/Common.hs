@@ -24,13 +24,16 @@ module Text.MMark.Extension.Common
   , Punctuation (..)
   , punctuationPrettifier
     -- * Email address obfuscation
-  , obfuscateEmail )
+  , obfuscateEmail
+    -- * Font Awesome icons
+  , fontAwesome )
 where
 
 import Data.Data (Data)
 import Data.Default.Class
 import Data.List.NonEmpty (NonEmpty (..))
 import Data.Maybe (maybeToList, fromJust)
+import Data.Monoid ((<>))
 import Data.Text (Text)
 import Data.Typeable (Typeable)
 import GHC.Generics
@@ -170,5 +173,46 @@ obfuscateEmail class' = Ext.inlineRender $ \old inline ->
                   [ class_ class'
                   , data_ "email"
                     (URI.render email { URI.uriScheme = Nothing }) ]
+        else old l
+    other -> old other
+
+----------------------------------------------------------------------------
+-- Font Awesome icons
+
+-- | Allow to insert @span@s with font awesome icons using autolinks like
+-- this:
+--
+-- > <fa:user>
+--
+-- This @user@ identifier is the name of icon you want to insert. You can
+-- also control the size of the icon like this:
+--
+-- > <fa:user/fw> -- fixed width
+-- > <fa:user/lg> -- large
+-- > <fa:user/2x>
+-- > <fa:user/3x>
+-- > <fa:user/4x>
+-- > <fa:user/5x>
+--
+-- In general, all path components in this URI that go after the name of
+-- icon will be prefixed with @\"fa-\"@ and added as classes, so you can do
+-- a lot of fancy stuff, see <http://fontawesome.io/examples/>:
+--
+-- > <fa:quote-left/3x/pull-left/border>
+--
+-- See also: <http://fontawesome.io>.
+
+fontAwesome :: Extension
+fontAwesome = Ext.inlineRender $ \old inline ->
+  case inline of
+    l@(Link _ fa _) ->
+      if URI.uriScheme fa == URI.mkScheme "fa"
+        then case URI.uriPath fa of
+               [] -> old l
+               xs ->
+                 let g x = "fa-" <> URI.unRText x
+                 in span_
+                    [ (class_ . T.intercalate " ") ("fa" : fmap g xs) ]
+                    ""
         else old l
     other -> old other
