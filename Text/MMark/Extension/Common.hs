@@ -8,6 +8,42 @@
 -- Portability :  portable
 --
 -- Commonly useful extensions for MMark markdown processor.
+--
+-- We suggest using a qualified import, like this:
+--
+-- > import qualified Text.MMark.Extension.Common as Ext
+--
+-- Here is an example that uses several extensions from this module at the
+-- same time, it should give you an idea where to start:
+--
+-- > {-# LANGUAGE OverloadedStrings #-}
+-- >
+-- > module Main (main) where
+-- >
+-- > import Data.Default.Class
+-- > import qualified Data.Text.IO                as T
+-- > import qualified Data.Text.Lazy.IO           as TL
+-- > import qualified Lucid                       as L
+-- > import qualified Text.MMark                  as MMark
+-- > import qualified Text.MMark.Extension.Common as Ext
+-- >
+-- > main :: IO ()
+-- > main = do
+-- >   let input = "input.md"
+-- >   txt <- T.readFile input
+-- >   case MMark.parse input txt of
+-- >     Left errs -> putStrLn (MMark.parseErrorsPretty txt errs)
+-- >     Right r ->
+-- >       let toc = MMark.runScanner r (Ext.tocScanner 4)
+-- >       in TL.writeFile "output.html"
+-- >           . L.renderText
+-- >           . MMark.render
+-- >           . MMark.useExtensions
+-- >               [ Ext.toc "toc" toc
+-- >               , Ext.punctuationPrettifier def
+-- >               , Ext.obfuscateEmail "protected-email"
+-- >               , Ext.fontAwesome ]
+-- >           $ r
 
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric      #-}
@@ -17,6 +53,7 @@
 
 module Text.MMark.Extension.Common
   ( -- * Table of contents
+    -- $table-of-contents
     Toc
   , tocScanner
   , toc
@@ -49,6 +86,17 @@ import qualified Text.URI             as URI
 ----------------------------------------------------------------------------
 -- Table of contents
 
+-- $table-of-contents
+--
+-- Place this markup in markdown document where you want table of contents
+-- to be inserted:
+--
+-- > ```toc
+-- > ```
+--
+-- You may use something different than @\"toc\"@ as the info string of the
+-- code block.
+
 -- | An opaque type representing table of contents produced by the
 -- 'tocScanner' scanner.
 
@@ -57,7 +105,8 @@ newtype Toc = Toc [(Int, NonEmpty Inline)]
 -- | The scanner builds table of contents 'Toc' that can then be passed to
 -- 'toc' to obtain an extension that renders the table of contents in HTML.
 --
--- __Note__: Top level header (level 1) is never added to the table of contents.
+-- __Note__: Top level header (level 1) is never added to the table of
+-- contents. Open an issue if you think it's not a good behavior.
 
 tocScanner
   :: Int -- ^ Up to which level (inclusive) to collect headers? Values from
@@ -148,7 +197,8 @@ punctuationPrettifier Punctuation {..} = Ext.inlineTrans $ \case
 -- >    data-email="something@example.org"
 -- >    href="javascript:void(0)">Enable JavaScript to see the email</a>
 --
--- You'll also need to include jQuery and this bit of JS code:
+-- You'll also need to include jQuery and this bit of JS code for the magic
+-- to work:
 --
 -- > $(document).ready(function () {
 -- >     $(".protected-email").each(function () {
