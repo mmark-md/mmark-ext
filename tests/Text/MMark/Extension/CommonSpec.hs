@@ -2,6 +2,7 @@
 
 module Text.MMark.Extension.CommonSpec (spec) where
 
+import Data.Default.Class
 import Data.Text (Text)
 import Test.Hspec
 import qualified Data.Text.Lazy              as TL
@@ -11,6 +12,25 @@ import qualified Text.MMark.Extension.Common as Ext
 
 spec :: Spec
 spec = parallel $ do
+  describe "punctuationPrettifier" $ do
+    let to = withExt (Ext.punctuationPrettifier def)
+        ot = withExt $ Ext.punctuationPrettifier def
+          { Ext.punctEnDash = False
+          , Ext.punctEmDash = False }
+    context "on plain inlines" $ do
+      context "when enabeled" $ do
+        it "replaces -- with en dash" $
+          "Here we go -- at last." `to` "<p>Here we go – at last.</p>\n"
+        it "replaces --- with em dash" $
+          "Here we go---at last." `to` "<p>Here we go—at last.</p>\n"
+      context "when disabled" $ do
+        it "does not replace -- with en dash" $
+          "Here we go -- at last." `ot` "<p>Here we go -- at last.</p>\n"
+        it "does not replace --- with em dash" $
+          "Here we go---at last." `ot` "<p>Here we go---at last.</p>\n"
+    context "on other inlines" $
+      it "has no effect" $
+        "`code -- span`" `to` "<p><code>code -- span</code></p>\n"
   describe "obfuscateEmail" $ do
     let to = withExt (Ext.obfuscateEmail "foo")
     context "when URI has the mailto scheme" $
@@ -36,6 +56,7 @@ spec = parallel $ do
     context "other elements" $
       it "not affected" $
         "Something." `to` "<p>Something.</p>\n"
+
 ----------------------------------------------------------------------------
 -- Helpers
 

@@ -46,6 +46,7 @@ test-suite tests
   hs-source-dirs:     tests
   type:               exitcode-stdio-1.0
   build-depends:      base             >= 4.8   && < 5.0
+                    , data-default-class
                     , hspec            >= 2.0   && < 3.0
                     , lucid            >= 2.6   && < 3.0
                     , mmark            >= 0.0.1 && <= 0.1
