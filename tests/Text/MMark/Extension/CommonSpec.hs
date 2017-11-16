@@ -11,18 +11,31 @@ import qualified Text.MMark.Extension.Common as Ext
 
 spec :: Spec
 spec = parallel $ do
+  describe "obfuscateEmail" $ do
+    let to = withExt (Ext.obfuscateEmail "foo")
+    context "when URI has the mailto scheme" $
+      it "produces the correct HTML" $
+        "<mailto:me@example.org>" `to` "<p><a href=\"javascript:void(0)\" class=\"foo\" data-email=\"me@example.org\">Enable JavaScript to see the email</a></p>\n"
+    context "when URI has some other scheme" $
+      it "produces the correct HTML" $
+        "<https:example.org>" `to` "<p><a href=\"https:example.org\">https:example.org</a></p>\n"
+    context "other elements" $
+      it "not affected" $
+        "Something." `to` "<p>Something.</p>\n"
   describe "fontAwesome" $ do
     let to = withExt Ext.fontAwesome
-    it "fa scheme allows to create correct spans" $ do
-      "<fa:user>" `to` "<p><span class=\"fa fa-user\"></span></p>\n"
-      "<fa:user/lg>" `to` "<p><span class=\"fa fa-user fa-lg\"></span></p>\n"
-      "<fa:quote-left/3x/pull-left/border>" `to` "<p><span class=\"fa fa-quote-left fa-3x fa-pull-left fa-border\"></span></p>\n"
-    it "other schemes are not affected" $
-      "<https://example.org>" `to` "<p><a href=\"https://example.org/\">https://example.org/</a></p>\n"
-    it "empty path does not produce a span" $
-      "<fa:>" `to` "<p><a href=\"fa:\">fa:</a></p>\n"
-    it "other elements are not affected" $
-      "Something." `to` "<p>Something.</p>\n"
+    context "when URI has the fa scheme" $
+      it "produces the correct HTML" $ do
+        "<fa:>" `to` "<p><a href=\"fa:\">fa:</a></p>\n"
+        "<fa:user>" `to` "<p><span class=\"fa fa-user\"></span></p>\n"
+        "<fa:user/lg>" `to` "<p><span class=\"fa fa-user fa-lg\"></span></p>\n"
+        "<fa:quote-left/3x/pull-left/border>" `to` "<p><span class=\"fa fa-quote-left fa-3x fa-pull-left fa-border\"></span></p>\n"
+    context "when URI has some other scheme" $
+      it "produces the correct HTML" $
+        "<https://example.org>" `to` "<p><a href=\"https://example.org/\">https://example.org/</a></p>\n"
+    context "other elements" $
+      it "not affected" $
+        "Something." `to` "<p>Something.</p>\n"
 ----------------------------------------------------------------------------
 -- Helpers
 
