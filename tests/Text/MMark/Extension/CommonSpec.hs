@@ -5,6 +5,7 @@ module Text.MMark.Extension.CommonSpec (spec) where
 import Data.Default.Class
 import Data.Text (Text)
 import Test.Hspec
+import qualified Data.Text.IO                as TIO
 import qualified Data.Text.Lazy              as TL
 import qualified Lucid                       as L
 import qualified Text.MMark                  as MMark
@@ -12,6 +13,9 @@ import qualified Text.MMark.Extension.Common as Ext
 
 spec :: Spec
 spec = parallel $ do
+  describe "toc" $
+    it "works" $
+      "data/toc.md" `withToc` "data/toc.html"
   describe "punctuationPrettifier" $ do
     let to = withExt (Ext.punctuationPrettifier def)
         ot = withExt $ Ext.punctuationPrettifier def
@@ -74,5 +78,24 @@ withExt ext input expected = do
         . L.renderText
         . MMark.render
         . MMark.useExtension ext
+        $ doc
+
+  actual `shouldBe` expected
+-- | Similar to 'withExt' but specialized to test the 'Ext.toc' extension
+-- and loads input and expected output from files.
+
+withToc
+  :: FilePath          -- ^ File containing input for the parser
+  -> FilePath          -- ^ File containing expected output of the render
+  -> Expectation
+withToc ipath opath = do
+  input    <- TIO.readFile ipath
+  expected <- TIO.readFile opath
+  let Right doc = MMark.parse "" input
+      toc       = MMark.runScanner doc (Ext.tocScanner 6)
+      actual = TL.toStrict
+        . L.renderText
+        . MMark.render
+        . MMark.useExtension (Ext.toc "toc" toc)
         $ doc
   actual `shouldBe` expected
