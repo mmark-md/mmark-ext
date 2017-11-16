@@ -8,7 +8,7 @@
 [![Coverage Status](https://coveralls.io/repos/mrkkrp/mmark-ext/badge.svg?branch=master&service=github)](https://coveralls.io/github/mrkkrp/mmark-ext?branch=master)
 
 Commonly useful extensions for
-[MMark](https://hackage.haskell.org/package/mmark-ext) markdown processor.
+[MMark](https://hackage.haskell.org/package/mmark) markdown processor.
 
 ## Contribution
 
