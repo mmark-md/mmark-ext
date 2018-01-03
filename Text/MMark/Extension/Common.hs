@@ -74,9 +74,11 @@ import Data.Monoid ((<>))
 import Data.Text (Text)
 import Data.Typeable (Typeable)
 import GHC.Generics
+import Lens.Micro ((^.))
 import Lucid
 import Text.MMark
 import Text.MMark.Extension (Bni, Block (..), Inline (..))
+import Text.URI.Lens (uriPath)
 import qualified Control.Foldl        as L
 import qualified Data.List.NonEmpty   as NE
 import qualified Data.Text            as T
@@ -257,7 +259,7 @@ fontAwesome = Ext.inlineRender $ \old inline ->
   case inline of
     l@(Link _ fa _) ->
       if URI.uriScheme fa == URI.mkScheme "fa"
-        then case URI.uriPath fa of
+        then case fa ^. uriPath of
                [] -> old l
                xs ->
                  let g x = "fa-" <> URI.unRText x
