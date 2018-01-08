@@ -1,3 +1,7 @@
+## MMark Ext 0.1.0.0
+
+* This version has little in common with previous versions.
+
 ## MMark Ext 0.0.1.2
 
 * Compiles with `modern-uri-0.2.0.0` and later.
