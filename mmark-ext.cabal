@@ -37,6 +37,7 @@ library
   if !impl(ghc >= 8.0)
     build-depends:    semigroups       == 0.18.*
   exposed-modules:    Text.MMark.Extension.Common
+                    , Text.MMark.Extension.Comment
                     , Text.MMark.Extension.FontAwesome
                     , Text.MMark.Extension.ObfuscateEmail
                     , Text.MMark.Extension.PunctuationPrettifier
@@ -61,7 +62,8 @@ test-suite tests
     ghc-options:      -O0 -Wall -Werror
   else
     ghc-options:      -O2 -Wall
-  other-modules:      Text.MMark.Extension.FontAwesomeSpec
+  other-modules:      Text.MMark.Extension.CommentSpec
+                    , Text.MMark.Extension.FontAwesomeSpec
                     , Text.MMark.Extension.ObfuscateEmailSpec
                     , Text.MMark.Extension.PunctuationPrettifierSpec
                     , Text.MMark.Extension.TableOfContentsSpec
