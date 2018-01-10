@@ -20,7 +20,7 @@
 -- >
 -- > module Main (main) where
 -- >
--- > import Data.Default.Class
+-- > import Skylighting (defaultFormatOpts)
 -- > import qualified Data.Text.IO                as T
 -- > import qualified Data.Text.Lazy.IO           as TL
 -- > import qualified Lucid                       as L
@@ -34,15 +34,14 @@
 -- >   case MMark.parse input txt of
 -- >     Left errs -> putStrLn (MMark.parseErrorsPretty txt errs)
 -- >     Right r ->
--- >       let toc = MMark.runScanner r (Ext.tocScanner 4)
+-- >       let toc = MMark.runScanner r (Ext.tocScanner (> 1))
 -- >       in TL.writeFile "output.html"
 -- >           . L.renderText
 -- >           . MMark.render
 -- >           . MMark.useExtensions
 -- >               [ Ext.toc "toc" toc
 -- >               , Ext.punctuationPrettifier
--- >               , Ext.obfuscateEmail "protected-email"
--- >               , Ext.fontAwesome ]
+-- >               , Ext.skylighting defaultFormatOpts ]
 -- >           $ r
 
 module Text.MMark.Extension.Common

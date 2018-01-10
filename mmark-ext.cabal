@@ -11,7 +11,11 @@ bug-reports:          https://github.com/mrkkrp/mmark-ext/issues
 category:             Text
 synopsis:             Commonly useful extensions for MMark markdown processor
 build-type:           Simple
-description:          Commonly useful extensions for MMark markdown processor.
+description:
+
+  Commonly useful extensions for MMark markdown processor.
+  Click on "Text.MMark.Extension.Common" to get started.
+
 extra-doc-files:      CHANGELOG.md
                     , README.md
 data-files:           data/*.md
