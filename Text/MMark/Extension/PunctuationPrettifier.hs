@@ -35,37 +35,35 @@ import qualified Text.MMark.Extension as Ext
 
 punctuationPrettifier :: Extension
 punctuationPrettifier = Ext.inlineTrans $ \case
-  Plain txt -> Plain (T.unfoldr gen (True, [], txt))
+  Plain txt -> Plain (T.unfoldr gen (True, txt))
   other     -> other
 
 gen
-  :: (Bool, String, Text)
-     -- ^ Whether the previous character was a space, characters pending
-     -- insertion, and remaining input
-  -> Maybe (Char, (Bool, String, Text))
+  :: (Bool, Text)
+     -- ^ Whether the previous character was a space and remaining input
+  -> Maybe (Char, (Bool, Text))
      -- ^ Next generated char and the state
-gen (s, x:xs, i) = Just (x, (s, xs, i))
-gen (s, [],   i) =
+gen (s, i) =
   case T.uncons i of
     Nothing -> Nothing
     Just ('.', i') ->
       case T.splitAt 2 i' of
-        ("..", i'') -> Just ('…', (False, [], i''))
-        (xs,   i'') -> Just ('.', (False, T.unpack xs, i''))
+        ("..", i'') -> Just ('…', (False, i''))
+        _           -> Just ('.', (False, i'))
     Just ('-', i') ->
       case T.splitAt 2 i' of
-        ("--", i'') -> Just ('—', (False, [], i''))
+        ("--", i'') -> Just ('—', (False, i''))
         _ ->
           case T.splitAt 1 i' of
-            ("-", i'') -> Just ('–', (False, [], i''))
-            (xs,  i'') -> Just ('-', (False, T.unpack xs, i''))
+            ("-", i'') -> Just ('–', (False, i''))
+            _          -> Just ('-', (False, i'))
     Just ('\"', i') ->
       if s -- whether previous character was a space character
-        then Just ('“', (False, [], i'))
-        else Just ('”', (False, [], i'))
+        then Just ('“', (False, i'))
+        else Just ('”', (False, i'))
     Just ('\'', i') ->
       if s
-        then Just ('‘', (False, [], i'))
-        else Just ('’', (False, [], i'))
+        then Just ('‘', (False, i'))
+        else Just ('’', (False, i'))
     Just (ch, i') ->
-      Just (ch, (isSpace ch, [], i'))
+      Just (ch, (isSpace ch, i'))
