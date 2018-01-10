@@ -24,7 +24,7 @@ import Text.MMark.Extension (Extension, Inline (..))
 import qualified Data.Text            as T
 import qualified Text.MMark.Extension as Ext
 
--- | When title of a link start with the word @\"_blank\"@, @\"_self\"@,
+-- | When title of a link starts with the word @\"_blank\"@, @\"_self\"@,
 -- @\"_parent\"@, or @\"_top\"@, it's stripped from title (as well as all
 -- whitespace after it) and added as the value of @target@ attribute of the
 -- resulting link.
