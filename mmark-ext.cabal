@@ -41,6 +41,7 @@ library
   exposed-modules:    Text.MMark.Extension.Common
                     , Text.MMark.Extension.Comment
                     , Text.MMark.Extension.FontAwesome
+                    , Text.MMark.Extension.Kbd
                     , Text.MMark.Extension.LinkTarget
                     , Text.MMark.Extension.ObfuscateEmail
                     , Text.MMark.Extension.PunctuationPrettifier
@@ -68,6 +69,7 @@ test-suite tests
     ghc-options:      -O2 -Wall
   other-modules:      Text.MMark.Extension.CommentSpec
                     , Text.MMark.Extension.FontAwesomeSpec
+                    , Text.MMark.Extension.KbdSpec
                     , Text.MMark.Extension.LinkTargetSpec
                     , Text.MMark.Extension.ObfuscateEmailSpec
                     , Text.MMark.Extension.PunctuationPrettifierSpec

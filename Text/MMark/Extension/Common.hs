@@ -48,6 +48,7 @@
 module Text.MMark.Extension.Common
   ( module Text.MMark.Extension.Comment
   , module Text.MMark.Extension.FontAwesome
+  , module Text.MMark.Extension.Kbd
   , module Text.MMark.Extension.LinkTarget
   , module Text.MMark.Extension.ObfuscateEmail
   , module Text.MMark.Extension.PunctuationPrettifier
@@ -57,6 +58,7 @@ where
 
 import Text.MMark.Extension.Comment
 import Text.MMark.Extension.FontAwesome
+import Text.MMark.Extension.Kbd
 import Text.MMark.Extension.LinkTarget
 import Text.MMark.Extension.ObfuscateEmail
 import Text.MMark.Extension.PunctuationPrettifier

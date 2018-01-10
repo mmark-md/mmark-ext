@@ -10,6 +10,7 @@
 -- Turn links into Font Awesome icons.
 
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes       #-}
 
 module Text.MMark.Extension.FontAwesome
   ( fontAwesome )
@@ -20,6 +21,7 @@ import Lens.Micro ((^.))
 import Lucid
 import Text.MMark.Extension (Extension, Inline (..))
 import Text.URI.Lens (uriPath)
+import Text.URI.QQ (scheme)
 import qualified Data.Text            as T
 import qualified Text.MMark.Extension as Ext
 import qualified Text.URI             as URI
@@ -50,9 +52,9 @@ import qualified Text.URI             as URI
 fontAwesome :: Extension
 fontAwesome = Ext.inlineRender $ \old inline ->
   case inline of
-    l@(Link _ fa _) ->
-      if URI.uriScheme fa == URI.mkScheme "fa"
-        then case fa ^. uriPath of
+    l@(Link _ uri _) ->
+      if URI.uriScheme uri == Just [scheme|fa|]
+        then case uri ^. uriPath of
                [] -> old l
                xs ->
                  let g x = "fa-" <> URI.unRText x
