@@ -50,6 +50,7 @@ module Text.MMark.Extension.Common
   , module Text.MMark.Extension.FontAwesome
   , module Text.MMark.Extension.ObfuscateEmail
   , module Text.MMark.Extension.PunctuationPrettifier
+  , module Text.MMark.Extension.Skylighting
   , module Text.MMark.Extension.TableOfContents )
 where
 
@@ -57,4 +58,5 @@ import Text.MMark.Extension.Comment
 import Text.MMark.Extension.FontAwesome
 import Text.MMark.Extension.ObfuscateEmail
 import Text.MMark.Extension.PunctuationPrettifier
+import Text.MMark.Extension.Skylighting
 import Text.MMark.Extension.TableOfContents
