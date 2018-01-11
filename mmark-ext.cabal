@@ -6,8 +6,8 @@ license:              BSD3
 license-file:         LICENSE.md
 author:               Mark Karpov <markkarpov92@gmail.com>
 maintainer:           Mark Karpov <markkarpov92@gmail.com>
-homepage:             https://github.com/mrkkrp/mmark-ext
-bug-reports:          https://github.com/mrkkrp/mmark-ext/issues
+homepage:             https://github.com/mmark-md/mmark-ext
+bug-reports:          https://github.com/mmark-md/mmark-ext/issues
 category:             Text
 synopsis:             Commonly useful extensions for MMark markdown processor
 build-type:           Simple
@@ -23,7 +23,7 @@ data-files:           data/*.md
 
 source-repository head
   type:               git
-  location:           https://github.com/mrkkrp/mmark-ext.git
+  location:           https://github.com/mmark-md/mmark-ext.git
 
 flag dev
   description:        Turn on development settings.
