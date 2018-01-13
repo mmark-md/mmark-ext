@@ -43,6 +43,7 @@ skylighting fmtOpts = Ext.blockRender $ \old block ->
            Just syntax ->
              case S.tokenize tokenizerConfig syntax txt of
                Left _ -> old cb
-               Right sourceLines -> toHtmlRaw . renderHtml $
-                 S.formatHtmlBlock fmtOpts sourceLines
+               Right sourceLines -> do
+                 toHtmlRaw . renderHtml $ S.formatHtmlBlock fmtOpts sourceLines
+                 "\n"
     other -> old other
