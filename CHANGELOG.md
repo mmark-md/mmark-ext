@@ -1,3 +1,7 @@
+## MMark Ext 0.1.1.0
+
+* Added the `Text.MMark.Extension.MathJax` module.
+
 ## MMark Ext 0.1.0.0
 
 * This version has little in common with previous versions.

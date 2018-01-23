@@ -8,6 +8,8 @@
 -- Portability :  portable
 --
 -- Turn code spans and fenced code blocks into MathJax formulas.
+--
+-- @since 0.1.1.0
 
 {-# LANGUAGE OverloadedStrings #-}
 
