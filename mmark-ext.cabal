@@ -47,6 +47,7 @@ library
                     , Text.MMark.Extension.FontAwesome
                     , Text.MMark.Extension.Kbd
                     , Text.MMark.Extension.LinkTarget
+                    , Text.MMark.Extension.MathJax
                     , Text.MMark.Extension.ObfuscateEmail
                     , Text.MMark.Extension.PunctuationPrettifier
                     , Text.MMark.Extension.Skylighting
@@ -75,6 +76,7 @@ test-suite tests
                     , Text.MMark.Extension.FontAwesomeSpec
                     , Text.MMark.Extension.KbdSpec
                     , Text.MMark.Extension.LinkTargetSpec
+                    , Text.MMark.Extension.MathJaxSpec
                     , Text.MMark.Extension.ObfuscateEmailSpec
                     , Text.MMark.Extension.PunctuationPrettifierSpec
                     , Text.MMark.Extension.TableOfContentsSpec
