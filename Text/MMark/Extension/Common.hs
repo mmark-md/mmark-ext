@@ -47,6 +47,7 @@
 module Text.MMark.Extension.Common
   ( module Text.MMark.Extension.Comment
   , module Text.MMark.Extension.FontAwesome
+  , module Text.MMark.Extension.Footnotes
   , module Text.MMark.Extension.Kbd
   , module Text.MMark.Extension.LinkTarget
   , module Text.MMark.Extension.MathJax
@@ -58,6 +59,7 @@ where
 
 import Text.MMark.Extension.Comment
 import Text.MMark.Extension.FontAwesome
+import Text.MMark.Extension.Footnotes
 import Text.MMark.Extension.Kbd
 import Text.MMark.Extension.LinkTarget
 import Text.MMark.Extension.MathJax
