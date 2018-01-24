@@ -2,6 +2,8 @@
 
 * Added the `Text.MMark.Extension.MathJax` module.
 
+* Added the `Text.MMark.Extension.Footnotes` module.
+
 ## MMark Ext 0.1.0.0
 
 * This version has little in common with previous versions.
