@@ -70,8 +70,10 @@ mathJaxBlock = Ext.blockRender $ \old block ->
   case block of
     b@(CodeBlock mlabel txt) ->
       if mlabel == Just "mathjax"
-        then p_ . forM_ (T.lines txt) $ \x ->
-               span_ [class_ "math display"] $
-                 "\\[" >> toHtml x >> "\\]"
+        then do
+               p_ . forM_ (T.lines txt) $ \x ->
+                 span_ [class_ "math display"] $
+                   "\\[" >> toHtml x >> "\\]"
+               "\n"
         else old b
     other -> old other
