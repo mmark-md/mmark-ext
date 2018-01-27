@@ -20,7 +20,6 @@
 -- >
 -- > module Main (main) where
 -- >
--- > import Skylighting (defaultFormatOpts)
 -- > import qualified Data.Text.IO                as T
 -- > import qualified Data.Text.Lazy.IO           as TL
 -- > import qualified Lucid                       as L
@@ -41,7 +40,7 @@
 -- >           . MMark.useExtensions
 -- >               [ Ext.toc "toc" toc
 -- >               , Ext.punctuationPrettifier
--- >               , Ext.skylighting defaultFormatOpts ]
+-- >               , Ext.skylighting ]
 -- >           $ r
 
 module Text.MMark.Extension.Common
