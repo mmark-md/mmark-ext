@@ -32,7 +32,6 @@ flag dev
 
 library
   build-depends:      base             >= 4.9   && < 5.0
-                    , blaze-html       >= 0.9   && < 0.10
                     , foldl            >= 1.2   && < 1.4
                     , lucid            >= 2.6   && < 3.0
                     , microlens        >= 0.4   && < 0.5
@@ -81,6 +80,7 @@ test-suite tests
                     , Text.MMark.Extension.MathJaxSpec
                     , Text.MMark.Extension.ObfuscateEmailSpec
                     , Text.MMark.Extension.PunctuationPrettifierSpec
+                    , Text.MMark.Extension.SkylightingSpec
                     , Text.MMark.Extension.TableOfContentsSpec
                     , Text.MMark.Extension.TestUtils
   default-language:   Haskell2010

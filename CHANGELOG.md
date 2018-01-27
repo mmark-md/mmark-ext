@@ -1,3 +1,9 @@
+## MMark Ext 0.2.0.0
+
+* The `skylighting` extension no longer accepts any arguments. Skylighting
+  built-in facilities for rendering to HTML are not acceptable as they
+  produce invalid HTML (with duplicate ids), so they were re-implemented.
+
 ## MMark Ext 0.1.1.0
 
 * Added the `Text.MMark.Extension.MathJax` module.
