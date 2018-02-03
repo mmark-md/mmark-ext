@@ -7,7 +7,7 @@
 -- Stability   :  experimental
 -- Portability :  portable
 --
--- Commonly useful extensions for MMark markdown processor.
+-- Commonly useful extensions for the MMark markdown processor.
 --
 -- We suggest using a qualified import, like this:
 --

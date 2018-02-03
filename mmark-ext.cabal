@@ -9,12 +9,12 @@ maintainer:           Mark Karpov <markkarpov92@gmail.com>
 homepage:             https://github.com/mmark-md/mmark-ext
 bug-reports:          https://github.com/mmark-md/mmark-ext/issues
 category:             Text
-synopsis:             Commonly useful extensions for MMark markdown processor
+synopsis:             Commonly useful extensions for the MMark markdown processor
 build-type:           Simple
 description:
 
-  Commonly useful extensions for MMark markdown processor.
-  Click on "Text.MMark.Extension.Common" to get started.
+  Commonly useful extensions for the MMark markdown processor. Click on
+  "Text.MMark.Extension.Common" to get started.
 
 extra-doc-files:      CHANGELOG.md
                     , README.md
