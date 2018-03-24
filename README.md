@@ -5,7 +5,6 @@
 [![Stackage Nightly](http://stackage.org/package/mmark-ext/badge/nightly)](http://stackage.org/nightly/package/mmark-ext)
 [![Stackage LTS](http://stackage.org/package/mmark-ext/badge/lts)](http://stackage.org/lts/package/mmark-ext)
 [![Build Status](https://travis-ci.org/mmark-md/mmark-ext.svg?branch=master)](https://travis-ci.org/mmark-md/mmark-ext)
-[![Coverage Status](https://coveralls.io/repos/mmark-md/mmark-ext/badge.svg?branch=master&service=github)](https://coveralls.io/github/mmark-md/mmark-ext?branch=master)
 
 Commonly useful extensions for the
 [MMark](https://hackage.haskell.org/package/mmark) markdown processor.
