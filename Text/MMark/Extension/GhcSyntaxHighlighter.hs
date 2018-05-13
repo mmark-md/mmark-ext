@@ -7,10 +7,13 @@
 -- Stability   :  experimental
 -- Portability :  portable
 --
--- Use the @ghc-syntax-highlighter@ package to highlight Haskell code.
+-- Use the @ghc-syntax-highlighter@ package to highlight Haskell code. This
+-- module only works with GHC 8.4.1 and newer (with older versions the
+-- extension just won't have any effect).
 --
 -- @since 0.2.1.0
 
+{-# LANGUAGE CPP               #-}
 {-# LANGUAGE LambdaCase        #-}
 {-# LANGUAGE OverloadedStrings #-}
 
@@ -19,11 +22,32 @@ module Text.MMark.Extension.GhcSyntaxHighlighter
 where
 
 import Data.Text (Text)
-import GHC.SyntaxHighlighter
 import Lucid
 import Text.MMark.Extension (Extension, Block (..))
 import qualified Data.Text            as T
 import qualified Text.MMark.Extension as Ext
+
+#if __GLASGOW_HASKELL__ >= 804
+import GHC.SyntaxHighlighter
+#else
+data Token
+  = KeywordTok
+  | PragmaTok
+  | SymbolTok
+  | VariableTok
+  | ConstructorTok
+  | OperatorTok
+  | CharTok
+  | StringTok
+  | IntegerTok
+  | RationalTok
+  | CommentTok
+  | SpaceTok
+  | OtherTok
+  deriving (Eq, Ord, Enum, Bounded, Show)
+tokenizeHaskell :: Text -> Maybe [(Token, Text)]
+tokenizeHaskell _ = Nothing
+#endif
 
 -- | Use the @ghc-syntax-highlighter@ package to highlight Haskell code. The
 -- extension is applied only to code blocks with info string @\"haskell\"@.
