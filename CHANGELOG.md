@@ -1,3 +1,9 @@
+## MMark Ext 0.2.1.0
+
+* Added the module `Text.MMark.Extension.GhcSyntaxHighlighter` with
+  `ghcSyntaxHighlighter` in it. This only works with GHC 8.4.1 and newer,
+  with older GHCs the extension just won't have any effect.
+
 ## MMark Ext 0.2.0.0
 
 * The `skylighting` extension no longer accepts any arguments. Skylighting
