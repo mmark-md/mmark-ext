@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.MMark.Extension.SkylightingSpec (spec) where
@@ -17,4 +18,8 @@ spec =
     context "with info string results in a successful lookup" $
       it "renders it correctly" $
         "```haskell\nmain :: IO ()\nmain = return ()\n```\n" `to`
+#if MIN_VERSION_skylighting(0,7,4)
+          "<div class=\"source-code\"><pre><code class=\"language-haskell\"><span class=\"ot\">main ::</span><span> </span><span class=\"dt\">IO</span><span> ()</span>\n<span>main </span><span class=\"fu\">=</span><span> </span><span class=\"fu\">return</span><span> ()</span>\n</code></pre></div>\n"
+#else
           "<div class=\"source-code\"><pre><code class=\"language-haskell\"><span class=\"ot\">main ::</span><span> </span><span class=\"dt\">IO</span><span> ()</span>\n<span>main </span><span class=\"fu\">=</span><span> return ()</span>\n</code></pre></div>\n"
+#endif
