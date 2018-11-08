@@ -1,3 +1,7 @@
+## MMark Ext 0.2.1.1
+
+* Made the tests pass with `skylighting-0.7.4`.
+
 ## MMark Ext 0.2.1.0
 
 * Added the module `Text.MMark.Extension.GhcSyntaxHighlighter` with
