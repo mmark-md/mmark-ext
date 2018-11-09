@@ -25,13 +25,14 @@
 -- > import qualified Lucid                       as L
 -- > import qualified Text.MMark                  as MMark
 -- > import qualified Text.MMark.Extension.Common as Ext
+-- > import qualified Text.Megaparsec             as M
 -- >
 -- > main :: IO ()
 -- > main = do
 -- >   let input = "input.md"
 -- >   txt <- T.readFile input
 -- >   case MMark.parse input txt of
--- >     Left errs -> putStrLn (MMark.parseErrorsPretty txt errs)
+-- >     Left bundle -> putStrLn (M.errorBundlePretty bundle)
 -- >     Right r ->
 -- >       let toc = MMark.runScanner r (Ext.tocScanner (> 1))
 -- >       in TL.writeFile "output.html"
