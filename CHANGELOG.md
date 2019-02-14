@@ -1,3 +1,7 @@
+## MMark Ext 0.2.1.2
+
+* Made the tests pass with `skylighting-0.7.6`.
+
 ## MMark Ext 0.2.1.1
 
 * Made the tests pass with `skylighting-0.7.4`.
