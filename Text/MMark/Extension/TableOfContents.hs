@@ -1,6 +1,6 @@
 -- |
 -- Module      :  Text.MMark.Extension.TableOfContents
--- Copyright   :  © 2017–2018 Mark Karpov
+-- Copyright   :  © 2017–present Mark Karpov
 -- License     :  BSD 3 clause
 --
 -- Maintainer  :  Mark Karpov <markkarpov92@gmail.com>
