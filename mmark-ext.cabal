@@ -1,7 +1,7 @@
 name:                 mmark-ext
 version:              0.2.1.2
 cabal-version:        1.18
-tested-with:          GHC==8.0.2, GHC==8.2.2, GHC==8.4.4, GHC==8.6.5
+tested-with:          GHC==8.2.2, GHC==8.4.4, GHC==8.6.5
 license:              BSD3
 license-file:         LICENSE.md
 author:               Mark Karpov <markkarpov92@gmail.com>
@@ -31,7 +31,7 @@ flag dev
   default:            False
 
 library
-  build-depends:      base             >= 4.9   && < 5.0
+  build-depends:      base             >= 4.10  && < 5.0
                     , foldl            >= 1.2   && < 1.5
                     , lucid            >= 2.6   && < 3.0
                     , microlens        >= 0.4   && < 0.5
@@ -67,7 +67,7 @@ test-suite tests
   main-is:            Spec.hs
   hs-source-dirs:     tests
   type:               exitcode-stdio-1.0
-  build-depends:      base             >= 4.9   && < 5.0
+  build-depends:      base             >= 4.10  && < 5.0
                     , hspec            >= 2.0   && < 3.0
                     , lucid            >= 2.6   && < 3.0
                     , mmark            >= 0.0.4 && <= 0.1

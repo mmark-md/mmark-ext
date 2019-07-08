@@ -1,3 +1,7 @@
+## Unreleased
+
+* Dropped support for GHC 8.0.
+
 ## MMark Ext 0.2.1.2
 
 * Made the tests pass with `skylighting-0.7.6`.
