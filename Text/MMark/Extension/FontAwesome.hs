@@ -9,6 +9,7 @@
 --
 -- Turn links into Font Awesome icons.
 
+{-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes       #-}
 
@@ -16,7 +17,6 @@ module Text.MMark.Extension.FontAwesome
   ( fontAwesome )
 where
 
-import Data.Semigroup ((<>))
 import Lens.Micro ((^.))
 import Lucid
 import Text.MMark.Extension (Extension, Inline (..))
@@ -25,6 +25,10 @@ import Text.URI.QQ (scheme)
 import qualified Data.Text            as T
 import qualified Text.MMark.Extension as Ext
 import qualified Text.URI             as URI
+
+#if !MIN_VERSION_base(4,13,0)
+import Data.Semigroup ((<>))
+#endif
 
 -- | Allow to insert @span@s with font awesome icons using autolinks like
 -- this:

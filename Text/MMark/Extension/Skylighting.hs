@@ -9,6 +9,7 @@
 --
 -- Use the Skylighting library to highlight code snippets.
 
+{-# LANGUAGE CPP               #-}
 {-# LANGUAGE LambdaCase        #-}
 {-# LANGUAGE OverloadedStrings #-}
 
@@ -17,7 +18,6 @@ module Text.MMark.Extension.Skylighting
 where
 
 import Control.Monad
-import Data.Semigroup ((<>))
 import Data.Text (Text)
 import Lucid
 import Skylighting (Token, TokenType (..))
@@ -25,6 +25,10 @@ import Text.MMark.Extension (Extension, Block (..))
 import qualified Data.Text            as T
 import qualified Skylighting          as S
 import qualified Text.MMark.Extension as Ext
+
+#if !MIN_VERSION_base(4,13,0)
+import Data.Semigroup ((<>))
+#endif
 
 -- | Use the @skylighting@ package to render code blocks with info strings
 -- that result in a successful lookup from 'S.defaultSyntaxMap'.
