@@ -11,6 +11,7 @@
 --
 -- @since 0.1.1.0
 
+{-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.MMark.Extension.MathJax
@@ -18,12 +19,15 @@ module Text.MMark.Extension.MathJax
 where
 
 import Control.Monad
-import Data.Semigroup ((<>))
 import Data.Text (Text)
 import Lucid
 import Text.MMark.Extension (Extension, Inline (..), Block (..))
 import qualified Data.Text            as T
 import qualified Text.MMark.Extension as Ext
+
+#if !MIN_VERSION_base(4,13,0)
+import Data.Semigroup ((<>))
+#endif
 
 -- | The extension allows to transform inline code spans into MathJax inline
 -- spans and code blocks with the info string @\"mathjax\"@ (case-sensitive)

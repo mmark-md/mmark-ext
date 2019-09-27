@@ -11,6 +11,7 @@
 --
 -- @since 0.1.1.0
 
+{-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes       #-}
 
@@ -21,7 +22,6 @@ where
 import Control.Monad
 import Data.Char (isDigit)
 import Data.List.NonEmpty (NonEmpty (..))
-import Data.Semigroup ((<>))
 import Data.Text (Text)
 import Lens.Micro ((^.))
 import Lucid
@@ -32,6 +32,10 @@ import qualified Data.List.NonEmpty   as NE
 import qualified Data.Text            as T
 import qualified Text.MMark.Extension as Ext
 import qualified Text.URI             as URI
+
+#if !MIN_VERSION_base(4,13,0)
+import Data.Semigroup ((<>))
+#endif
 
 -- | The extension performs two transformations:
 --
