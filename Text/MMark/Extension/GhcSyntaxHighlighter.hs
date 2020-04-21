@@ -7,9 +7,7 @@
 -- Stability   :  experimental
 -- Portability :  portable
 --
--- Use the @ghc-syntax-highlighter@ package to highlight Haskell code. This
--- module only works with GHC 8.4.1 and newer (with older versions the
--- extension just won't have any effect).
+-- Use the @ghc-syntax-highlighter@ package to highlight Haskell code.
 --
 -- @since 0.2.1.0
 
