@@ -1,3 +1,6 @@
+{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE OverloadedStrings #-}
+
 -- |
 -- Module      :  Text.MMark.Extension.GhcSyntaxHighlighter
 -- Copyright   :  © 2018–present Mark Karpov
@@ -10,19 +13,16 @@
 -- Use the @ghc-syntax-highlighter@ package to highlight Haskell code.
 --
 -- @since 0.2.1.0
-
-{-# LANGUAGE LambdaCase        #-}
-{-# LANGUAGE OverloadedStrings #-}
-
 module Text.MMark.Extension.GhcSyntaxHighlighter
-  ( ghcSyntaxHighlighter )
+  ( ghcSyntaxHighlighter,
+  )
 where
 
 import Data.Text (Text)
+import qualified Data.Text as T
 import GHC.SyntaxHighlighter
 import Lucid
-import Text.MMark.Extension (Extension, Block (..))
-import qualified Data.Text            as T
+import Text.MMark.Extension (Block (..), Extension)
 import qualified Text.MMark.Extension as Ext
 
 -- | Use the @ghc-syntax-highlighter@ package to highlight Haskell code. The
@@ -52,7 +52,6 @@ import qualified Text.MMark.Extension as Ext
 -- place it on the left hand side of @('<>')@ or above
 -- 'Text.MMark.Extension.Skylighting.skylighting' in the list passed to
 -- 'Text.MMark.useExtensions'.
-
 ghcSyntaxHighlighter :: Extension
 ghcSyntaxHighlighter = Ext.blockRender $ \old block ->
   case block of
@@ -71,7 +70,6 @@ ghcSyntaxHighlighter = Ext.blockRender $ \old block ->
     newline = "\n"
 
 -- | Render a single 'Token'.
-
 tokenToHtml :: (Token, Text) -> Html ()
 tokenToHtml (tokenType, txt) =
   span_ [class_ rawClass | not (T.null rawClass)] (toHtml txt)
@@ -79,19 +77,18 @@ tokenToHtml (tokenType, txt) =
     rawClass = tokenClass tokenType
 
 -- | Return class corresponding to given 'TokenType'.
-
 tokenClass :: Token -> Text
 tokenClass = \case
-  KeywordTok     -> "kw"
-  PragmaTok      -> "pr"
-  SymbolTok      -> "sy"
-  VariableTok    -> "va"
+  KeywordTok -> "kw"
+  PragmaTok -> "pr"
+  SymbolTok -> "sy"
+  VariableTok -> "va"
   ConstructorTok -> "cr"
-  OperatorTok    -> "op"
-  CharTok        -> "ch"
-  StringTok      -> "st"
-  IntegerTok     -> "it"
-  RationalTok    -> "ra"
-  CommentTok     -> "co"
-  SpaceTok       -> ""
-  OtherTok       -> "ot"
+  OperatorTok -> "op"
+  CharTok -> "ch"
+  StringTok -> "st"
+  IntegerTok -> "it"
+  RationalTok -> "ra"
+  CommentTok -> "co"
+  SpaceTok -> ""
+  OtherTok -> "ot"

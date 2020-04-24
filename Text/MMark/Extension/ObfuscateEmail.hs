@@ -1,3 +1,6 @@
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes #-}
+
 -- |
 -- Module      :  Text.MMark.Extension.ObfuscateEmail
 -- Copyright   :  © 2018–present Mark Karpov
@@ -8,21 +11,18 @@
 -- Portability :  portable
 --
 -- Obfuscate email addresses.
-
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE QuasiQuotes       #-}
-
 module Text.MMark.Extension.ObfuscateEmail
-  ( obfuscateEmail )
+  ( obfuscateEmail,
+  )
 where
 
 import Data.List.NonEmpty (NonEmpty (..))
 import Data.Text (Text)
 import Lucid
 import Text.MMark.Extension (Extension, Inline (..))
-import Text.URI.QQ (scheme, uri)
 import qualified Text.MMark.Extension as Ext
 import qualified Text.URI as URI
+import Text.URI.QQ (scheme, uri)
 
 -- | This extension makes email addresses in autolinks be rendered as
 -- something like this:
@@ -42,20 +42,23 @@ import qualified Text.URI as URI
 -- >         item.html(email);
 -- >     });
 -- > });
-
-obfuscateEmail
-  :: Text
-     -- ^ Name of class to assign to the links, e.g. @\"protected-email\"@
-  -> Extension
+obfuscateEmail ::
+  -- | Name of class to assign to the links, e.g. @\"protected-email\"@
+  Text ->
+  Extension
 obfuscateEmail class' = Ext.inlineRender $ \old inline ->
   case inline of
     l@(Link _ email mtitle) ->
       if URI.uriScheme email == Just [scheme|mailto|]
-        then let txt = Plain "Enable JavaScript to see this email" :| []
-                 js  = [uri|javascript:void(0)|]
-             in with (old (Link txt js mtitle))
-                  [ class_ class'
-                  , data_ "email"
-                    (URI.render email { URI.uriScheme = Nothing }) ]
+        then
+          let txt = Plain "Enable JavaScript to see this email" :| []
+              js = [uri|javascript:void(0)|]
+           in with
+                (old (Link txt js mtitle))
+                [ class_ class',
+                  data_
+                    "email"
+                    (URI.render email {URI.uriScheme = Nothing})
+                ]
         else old l
     other -> old other

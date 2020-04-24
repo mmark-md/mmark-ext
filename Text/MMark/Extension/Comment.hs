@@ -9,24 +9,24 @@
 --
 -- Turn paragraphs into comments by prefixing them with a certain sequence
 -- of characters.
-
 module Text.MMark.Extension.Comment
-  ( commentParagraph )
+  ( commentParagraph,
+  )
 where
 
 import Control.Monad
 import Data.List.NonEmpty (NonEmpty (..))
 import Data.Text (Text)
-import Text.MMark.Extension (Extension, Block (..), Inline (..))
-import qualified Data.Text            as T
+import qualified Data.Text as T
+import Text.MMark.Extension (Block (..), Extension, Inline (..))
 import qualified Text.MMark.Extension as Ext
 
 -- | This extension removes top-level paragraphs starting with the given
 -- sequence of non-markup characters.
-
-commentParagraph
-  :: Text              -- ^ Sequence of characters that starts a comment
-  -> Extension
+commentParagraph ::
+  -- | Sequence of characters that starts a comment
+  Text ->
+  Extension
 commentParagraph commentPrefix = Ext.blockRender $ \old block ->
   case block of
     p@(Paragraph (ois, _)) ->

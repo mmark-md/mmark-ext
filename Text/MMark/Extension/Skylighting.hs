@@ -1,3 +1,7 @@
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE OverloadedStrings #-}
+
 -- |
 -- Module      :  Text.MMark.Extension.Skylighting
 -- Copyright   :  © 2018–present Mark Karpov
@@ -8,22 +12,18 @@
 -- Portability :  portable
 --
 -- Use the Skylighting library to highlight code snippets.
-
-{-# LANGUAGE CPP               #-}
-{-# LANGUAGE LambdaCase        #-}
-{-# LANGUAGE OverloadedStrings #-}
-
 module Text.MMark.Extension.Skylighting
-  ( skylighting )
+  ( skylighting,
+  )
 where
 
 import Control.Monad
 import Data.Text (Text)
+import qualified Data.Text as T
 import Lucid
 import Skylighting (Token, TokenType (..))
-import Text.MMark.Extension (Extension, Block (..))
-import qualified Data.Text            as T
-import qualified Skylighting          as S
+import qualified Skylighting as S
+import Text.MMark.Extension (Block (..), Extension)
 import qualified Text.MMark.Extension as Ext
 
 #if !MIN_VERSION_base(4,13,0)
@@ -66,35 +66,36 @@ import Data.Semigroup ((<>))
 --     * 'VariableTok'       = @\"va\"@
 --     * 'VerbatimStringTok' = @\"vs\"@
 --     * 'WarningTok'        = @\"wa\"@
-
 skylighting :: Extension
 skylighting = Ext.blockRender $ \old block ->
   case block of
     cb@(CodeBlock (Just infoString') txt) ->
-      let tokenizerConfig = S.TokenizerConfig
-            { S.syntaxMap   = S.defaultSyntaxMap
-            , S.traceOutput = False }
+      let tokenizerConfig =
+            S.TokenizerConfig
+              { S.syntaxMap = S.defaultSyntaxMap,
+                S.traceOutput = False
+              }
           infoString = T.replace "-" " " infoString'
-      in case S.lookupSyntax infoString S.defaultSyntaxMap of
-           Nothing -> old cb
-           Just syntax ->
-             case S.tokenize tokenizerConfig syntax txt of
-               Left _ -> old cb
-               Right ls -> do
-                 div_ [class_ "source-code"]
-                   . pre_
-                   . code_ [class_ ("language-" <> infoString)]
-                   . forM_ ls $ \l -> do
-                       mapM_ tokenToHtml l
-                       newline
-                 newline
+       in case S.lookupSyntax infoString S.defaultSyntaxMap of
+            Nothing -> old cb
+            Just syntax ->
+              case S.tokenize tokenizerConfig syntax txt of
+                Left _ -> old cb
+                Right ls -> do
+                  div_ [class_ "source-code"]
+                    . pre_
+                    . code_ [class_ ("language-" <> infoString)]
+                    . forM_ ls
+                    $ \l -> do
+                      mapM_ tokenToHtml l
+                      newline
+                  newline
     other -> old other
   where
     newline :: Html ()
     newline = "\n"
 
 -- | Render a single 'Token'.
-
 tokenToHtml :: Token -> Html ()
 tokenToHtml (tokenType, txt) =
   span_ [class_ rawClass | not (T.null rawClass)] (toHtml txt)
@@ -102,37 +103,36 @@ tokenToHtml (tokenType, txt) =
     rawClass = tokenClass tokenType
 
 -- | Return class corresponding to given 'TokenType'.
-
 tokenClass :: TokenType -> Text
 tokenClass = \case
-  KeywordTok        -> "kw"
-  DataTypeTok       -> "dt"
-  DecValTok         -> "dv"
-  BaseNTok          -> "bn"
-  FloatTok          -> "fl"
-  CharTok           -> "ch"
-  StringTok         -> "st"
-  CommentTok        -> "co"
-  OtherTok          -> "ot"
-  AlertTok          -> "al"
-  FunctionTok       -> "fu"
-  RegionMarkerTok   -> "re"
-  ErrorTok          -> "er"
-  ConstantTok       -> "cn"
-  SpecialCharTok    -> "sc"
+  KeywordTok -> "kw"
+  DataTypeTok -> "dt"
+  DecValTok -> "dv"
+  BaseNTok -> "bn"
+  FloatTok -> "fl"
+  CharTok -> "ch"
+  StringTok -> "st"
+  CommentTok -> "co"
+  OtherTok -> "ot"
+  AlertTok -> "al"
+  FunctionTok -> "fu"
+  RegionMarkerTok -> "re"
+  ErrorTok -> "er"
+  ConstantTok -> "cn"
+  SpecialCharTok -> "sc"
   VerbatimStringTok -> "vs"
-  SpecialStringTok  -> "ss"
-  ImportTok         -> "im"
-  DocumentationTok  -> "do"
-  AnnotationTok     -> "an"
-  CommentVarTok     -> "cv"
-  VariableTok       -> "va"
-  ControlFlowTok    -> "cf"
-  OperatorTok       -> "op"
-  BuiltInTok        -> "bu"
-  ExtensionTok      -> "ex"
-  PreprocessorTok   -> "pp"
-  AttributeTok      -> "at"
-  InformationTok    -> "in"
-  WarningTok        -> "wa"
-  NormalTok         -> ""
+  SpecialStringTok -> "ss"
+  ImportTok -> "im"
+  DocumentationTok -> "do"
+  AnnotationTok -> "an"
+  CommentVarTok -> "cv"
+  VariableTok -> "va"
+  ControlFlowTok -> "cf"
+  OperatorTok -> "op"
+  BuiltInTok -> "bu"
+  ExtensionTok -> "ex"
+  PreprocessorTok -> "pp"
+  AttributeTok -> "at"
+  InformationTok -> "in"
+  WarningTok -> "wa"
+  NormalTok -> ""

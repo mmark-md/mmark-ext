@@ -1,3 +1,5 @@
+{-# LANGUAGE QuasiQuotes #-}
+
 -- |
 -- Module      :  Text.MMark.Extension.Kbd
 -- Copyright   :  © 2018–present Mark Karpov
@@ -9,18 +11,16 @@
 --
 -- Introduce @kbd@ tags into resulting HTML document by wrapping content in
 -- links with URL with @kbd@ scheme.
-
-{-# LANGUAGE QuasiQuotes #-}
-
 module Text.MMark.Extension.Kbd
-  ( kbd )
+  ( kbd,
+  )
 where
 
 import Lucid
 import Text.MMark.Extension (Extension, Inline (..))
-import Text.URI.QQ (scheme)
 import qualified Text.MMark.Extension as Ext
-import qualified Text.URI             as URI
+import qualified Text.URI as URI
+import Text.URI.QQ (scheme)
 
 -- | Introduce @kbd@ tags into resulting HTML document by wrapping content
 -- in links with URL with @kbd@ scheme.
@@ -35,7 +35,6 @@ import qualified Text.URI             as URI
 -- author, but you can of course do somethnig like this instead:
 --
 -- > To enable that mode press [Ctrl+A](kbd:).
-
 kbd :: Extension
 kbd = Ext.inlineRender $ \old inline ->
   case inline of

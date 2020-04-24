@@ -43,19 +43,19 @@
 -- >               , Ext.punctuationPrettifier
 -- >               , Ext.skylighting ]
 -- >           $ r
-
 module Text.MMark.Extension.Common
-  ( module Text.MMark.Extension.Comment
-  , module Text.MMark.Extension.FontAwesome
-  , module Text.MMark.Extension.Footnotes
-  , module Text.MMark.Extension.GhcSyntaxHighlighter
-  , module Text.MMark.Extension.Kbd
-  , module Text.MMark.Extension.LinkTarget
-  , module Text.MMark.Extension.MathJax
-  , module Text.MMark.Extension.ObfuscateEmail
-  , module Text.MMark.Extension.PunctuationPrettifier
-  , module Text.MMark.Extension.Skylighting
-  , module Text.MMark.Extension.TableOfContents )
+  ( module Text.MMark.Extension.Comment,
+    module Text.MMark.Extension.FontAwesome,
+    module Text.MMark.Extension.Footnotes,
+    module Text.MMark.Extension.GhcSyntaxHighlighter,
+    module Text.MMark.Extension.Kbd,
+    module Text.MMark.Extension.LinkTarget,
+    module Text.MMark.Extension.MathJax,
+    module Text.MMark.Extension.ObfuscateEmail,
+    module Text.MMark.Extension.PunctuationPrettifier,
+    module Text.MMark.Extension.Skylighting,
+    module Text.MMark.Extension.TableOfContents,
+  )
 where
 
 import Text.MMark.Extension.Comment

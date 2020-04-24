@@ -1,3 +1,7 @@
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes #-}
+
 -- |
 -- Module      :  Text.MMark.Extension.FontAwesome
 -- Copyright   :  © 2017–present Mark Karpov
@@ -8,23 +12,19 @@
 -- Portability :  portable
 --
 -- Turn links into Font Awesome icons.
-
-{-# LANGUAGE CPP               #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE QuasiQuotes       #-}
-
 module Text.MMark.Extension.FontAwesome
-  ( fontAwesome )
+  ( fontAwesome,
+  )
 where
 
+import qualified Data.Text as T
 import Lens.Micro ((^.))
 import Lucid
 import Text.MMark.Extension (Extension, Inline (..))
+import qualified Text.MMark.Extension as Ext
+import qualified Text.URI as URI
 import Text.URI.Lens (uriPath)
 import Text.URI.QQ (scheme)
-import qualified Data.Text            as T
-import qualified Text.MMark.Extension as Ext
-import qualified Text.URI             as URI
 
 #if !MIN_VERSION_base(4,13,0)
 import Data.Semigroup ((<>))
@@ -52,18 +52,17 @@ import Data.Semigroup ((<>))
 -- > <fa:quote-left/3x/pull-left/border>
 --
 -- See also: <http://fontawesome.io>.
-
 fontAwesome :: Extension
 fontAwesome = Ext.inlineRender $ \old inline ->
   case inline of
     l@(Link _ uri _) ->
       if URI.uriScheme uri == Just [scheme|fa|]
         then case uri ^. uriPath of
-               [] -> old l
-               xs ->
-                 let g x = "fa-" <> URI.unRText x
-                 in span_
-                    [ (class_ . T.intercalate " ") ("fa" : fmap g xs) ]
-                    ""
+          [] -> old l
+          xs ->
+            let g x = "fa-" <> URI.unRText x
+             in span_
+                  [(class_ . T.intercalate " ") ("fa" : fmap g xs)]
+                  ""
         else old l
     other -> old other

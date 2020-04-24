@@ -1,3 +1,6 @@
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE OverloadedStrings #-}
+
 -- |
 -- Module      :  Text.MMark.Extension.MathJax
 -- Copyright   :  © 2018–present Mark Karpov
@@ -10,19 +13,16 @@
 -- Turn code spans and fenced code blocks into MathJax formulas.
 --
 -- @since 0.1.1.0
-
-{-# LANGUAGE CPP               #-}
-{-# LANGUAGE OverloadedStrings #-}
-
 module Text.MMark.Extension.MathJax
-  ( mathJax )
+  ( mathJax,
+  )
 where
 
 import Control.Monad
 import Data.Text (Text)
+import qualified Data.Text as T
 import Lucid
-import Text.MMark.Extension (Extension, Inline (..), Block (..))
-import qualified Data.Text            as T
+import Text.MMark.Extension (Block (..), Extension, Inline (..))
 import qualified Text.MMark.Extension as Ext
 
 #if !MIN_VERSION_base(4,13,0)
@@ -40,16 +40,15 @@ import Data.Semigroup ((<>))
 -- 'Nothing' is passed instead of a char, we apply the transformation to all
 -- code spans (useful for more academic articles that do not deal with
 -- code).
-
-mathJax
-  :: Maybe Char -- ^ Starting\/ending character in MathJax inline spans
-  -> Extension
+mathJax ::
+  -- | Starting\/ending character in MathJax inline spans
+  Maybe Char ->
+  Extension
 mathJax mch = mathJaxSpan mch <> mathJaxBlock
 
 -- | Turn code spans that start and end with a given character into MathJax
 -- inline spans. If 'Nothing' is provided instead of a char, apply the
 -- transformation to all code spans.
-
 mathJaxSpan :: Maybe Char -> Extension
 mathJaxSpan mch = Ext.inlineRender $ \old inline ->
   case inline of
@@ -63,21 +62,21 @@ mathJaxSpan mch = Ext.inlineRender $ \old inline ->
     other -> old other
   where
     spn :: Text -> Html ()
-    spn x = span_ [class_ "math inline"] $
-      "\\(" >> toHtml x >> "\\)"
+    spn x =
+      span_ [class_ "math inline"] $
+        "\\(" >> toHtml x >> "\\)"
 
 -- | Turn code blocks with info string @\"mathjax\"@ into MathJax display
 -- spans.
-
 mathJaxBlock :: Extension
 mathJaxBlock = Ext.blockRender $ \old block ->
   case block of
     b@(CodeBlock mlabel txt) ->
       if mlabel == Just "mathjax"
         then do
-               p_ . forM_ (T.lines txt) $ \x ->
-                 span_ [class_ "math display"] $
-                   "\\[" >> toHtml x >> "\\]"
-               "\n"
+          p_ . forM_ (T.lines txt) $ \x ->
+            span_ [class_ "math display"] $
+              "\\[" >> toHtml x >> "\\]"
+          "\n"
         else old b
     other -> old other

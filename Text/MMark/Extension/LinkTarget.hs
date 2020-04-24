@@ -1,3 +1,6 @@
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TupleSections #-}
+
 -- |
 -- Module      :  Text.MMark.Extension.LinkTarget
 -- Copyright   :  © 2018–present Mark Karpov
@@ -9,19 +12,16 @@
 --
 -- Specify the @target@ attribute of links in link titles. This allows, e.g.
 -- make a link open in new tab.
-
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TupleSections     #-}
-
 module Text.MMark.Extension.LinkTarget
-  ( linkTarget )
+  ( linkTarget,
+  )
 where
 
 import Data.Foldable (asum)
 import Data.Maybe (fromMaybe)
+import qualified Data.Text as T
 import Lucid
 import Text.MMark.Extension (Extension, Inline (..))
-import qualified Data.Text            as T
 import qualified Text.MMark.Extension as Ext
 
 -- | When title of a link starts with the word @\"_blank\"@, @\"_self\"@,
@@ -32,15 +32,16 @@ import qualified Text.MMark.Extension as Ext
 -- For example:
 --
 -- > This [link](/url '_blank My title') opens in new tab.
-
 linkTarget :: Extension
 linkTarget = Ext.inlineRender $ \old inline ->
   case inline of
     l@(Link txt url (Just title)) -> fromMaybe (old l) $ do
-      let f prefix = (prefix,) . T.stripStart
-            <$> T.stripPrefix prefix title
-      (prefix, title') <- asum $
-        f <$> ["_blank", "_self", "_parent", "_top"]
+      let f prefix =
+            (prefix,) . T.stripStart
+              <$> T.stripPrefix prefix title
+      (prefix, title') <-
+        asum $
+          f <$> ["_blank", "_self", "_parent", "_top"]
       let mtitle = if T.null title' then Nothing else Just title'
       return $ with (old (Link txt url mtitle)) [target_ prefix]
     other -> old other
