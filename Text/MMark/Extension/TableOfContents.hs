@@ -83,7 +83,7 @@ renderToc = UnorderedList . NE.unfoldr f
     f ((n, x) :| xs) =
       let (sitems, fitems) = span ((> n) . fst) xs
           url = Ext.headerFragment (Ext.headerId x)
-       in ( Naked (Link x url Nothing :| [])
-              : maybeToList (renderToc <$> NE.nonEmpty sitems),
+       in ( Naked (Link x url Nothing :| []) :
+            maybeToList (renderToc <$> NE.nonEmpty sitems),
             NE.nonEmpty fitems
           )

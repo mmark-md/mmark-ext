@@ -31,6 +31,6 @@ spec =
         "Something-\"foo\"." `to` "<p>Something-”foo”.</p>\n"
       it "a tricky test 2" $
         "Something.--" `to` "<p>Something.–</p>\n"
-    context "on other inlines"
-      $ it "has no effect"
-      $ "`code -- span`" `to` "<p><code>code -- span</code></p>\n"
+    context "on other inlines" $
+      it "has no effect" $
+        "`code -- span`" `to` "<p><code>code -- span</code></p>\n"

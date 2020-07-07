@@ -11,9 +11,8 @@ import Text.MMark.Extension.TableOfContents
 
 spec :: Spec
 spec =
-  describe "toc"
-    $ it "works"
-    $ do
+  describe "toc" $
+    it "works" $ do
       input <- TIO.readFile "data/toc.md"
       expected <- TIO.readFile "data/toc.html"
       let Right doc = MMark.parse "" input
