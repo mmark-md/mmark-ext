@@ -1,6 +1,6 @@
 cabal-version:   1.18
 name:            mmark-ext
-version:         0.2.1.2
+version:         0.2.1.3
 license:         BSD3
 license-file:    LICENSE.md
 maintainer:      Mark Karpov <markkarpov92@gmail.com>
