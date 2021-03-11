@@ -1,6 +1,8 @@
-## Unreleased
+## MMark Ext 0.2.1.3
 
-* Dropped support for GHC 8.2 and older.
+* The test suite passes with `modern-uri-0.3.4` and later.
+
+* Dropped support for GHC 8.4 and older.
 
 ## MMark Ext 0.2.1.2
 

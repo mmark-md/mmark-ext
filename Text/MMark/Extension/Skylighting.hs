@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP #-}
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 
@@ -25,10 +24,6 @@ import Skylighting (Token, TokenType (..))
 import qualified Skylighting as S
 import Text.MMark.Extension (Block (..), Extension)
 import qualified Text.MMark.Extension as Ext
-
-#if !MIN_VERSION_base(4,13,0)
-import Data.Semigroup ((<>))
-#endif
 
 -- | Use the @skylighting@ package to render code blocks with info strings
 -- that result in a successful lookup from 'S.defaultSyntaxMap'.
