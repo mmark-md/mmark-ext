@@ -18,7 +18,7 @@ spec =
         "<fa:quote-left/3x/pull-left/border>" `to` "<p><span class=\"fa fa-quote-left fa-3x fa-pull-left fa-border\"></span></p>\n"
     context "when URI has some other scheme" $
       it "produces the correct HTML" $
-        "<https://example.org>" `to` "<p><a href=\"https://example.org/\">https://example.org/</a></p>\n"
+        "<https://example.org>" `to` "<p><a href=\"https://example.org\">https://example.org</a></p>\n"
     context "other elements" $
       it "not affected" $
         "Something." `to` "<p>Something.</p>\n"

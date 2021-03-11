@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes #-}
 
@@ -25,10 +24,6 @@ import qualified Text.MMark.Extension as Ext
 import qualified Text.URI as URI
 import Text.URI.Lens (uriPath)
 import Text.URI.QQ (scheme)
-
-#if !MIN_VERSION_base(4,13,0)
-import Data.Semigroup ((<>))
-#endif
 
 -- | Allow to insert @span@s with font awesome icons using autolinks like
 -- this:
