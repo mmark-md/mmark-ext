@@ -26,7 +26,8 @@ import Text.MMark.Extension (Block (..), Extension)
 import qualified Text.MMark.Extension as Ext
 
 -- | Use the @ghc-syntax-highlighter@ package to highlight Haskell code. The
--- extension is applied only to code blocks with info string @\"haskell\"@.
+-- extension is applied only to code blocks with the info string
+-- @\"haskell\"@.
 --
 -- The resulting code block will be wrapped in a @div@ with class
 -- @\"source-code\"@. The following @span@ classes can be used for styling:

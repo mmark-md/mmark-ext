@@ -9,8 +9,7 @@
 -- Stability   :  experimental
 -- Portability :  portable
 --
--- Introduce @kbd@ tags into resulting HTML document by wrapping content in
--- links with URL with @kbd@ scheme.
+-- Introduce @kbd@ tags by wrapping content in links with @kbd@ scheme.
 module Text.MMark.Extension.Kbd
   ( kbd,
   )
@@ -22,8 +21,7 @@ import qualified Text.MMark.Extension as Ext
 import qualified Text.URI as URI
 import Text.URI.QQ (scheme)
 
--- | Introduce @kbd@ tags into resulting HTML document by wrapping content
--- in links with URL with @kbd@ scheme.
+-- | Introduce @kbd@ tags by wrapping content in links with @kbd@ scheme.
 --
 -- For example:
 --
@@ -31,8 +29,8 @@ import Text.URI.QQ (scheme)
 -- >
 -- > [kbd]: kbd:
 --
--- The use of reference-style links seems more aesthetically pleasant to the
--- author, but you can of course do somethnig like this instead:
+-- The use of reference-style links seems more aesthetically pleasant to me,
+-- but you can of course do somethnig like this instead:
 --
 -- > To enable that mode press [Ctrl+A](kbd:).
 kbd :: Extension

@@ -10,8 +10,8 @@
 -- Stability   :  experimental
 -- Portability :  portable
 --
--- Specify the @target@ attribute of links in link titles. This allows, e.g.
--- make a link open in new tab.
+-- Specify the @target@ attribute of links in link titles. This allows us
+-- to, e.g. make a link open in a new tab.
 module Text.MMark.Extension.LinkTarget
   ( linkTarget,
   )

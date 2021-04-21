@@ -25,13 +25,12 @@ import qualified Text.URI as URI
 import Text.URI.Lens (uriPath)
 import Text.URI.QQ (scheme)
 
--- | Allow to insert @span@s with font awesome icons using autolinks like
--- this:
+-- | Insert @span@s with font awesome icons using autolinks like this:
 --
 -- > <fa:user>
 --
--- This @user@ identifier is the name of icon you want to insert. You can
--- also control the size of the icon like this:
+-- This @user@ identifier is the name of the icon you want to insert. You
+-- can also control the size of the icon like this:
 --
 -- > <fa:user/fw> -- fixed width
 -- > <fa:user/lg> -- large
@@ -40,9 +39,9 @@ import Text.URI.QQ (scheme)
 -- > <fa:user/4x>
 -- > <fa:user/5x>
 --
--- In general, all path components in this URI that go after the name of
--- icon will be prefixed with @\"fa-\"@ and added as classes, so you can do
--- a lot of fancy stuff, see <http://fontawesome.io/examples/>:
+-- In general, all path components that go after the name of the icon will
+-- be prefixed with @\"fa-\"@ and added as classes, so you can do a lot of
+-- fancy stuff, see <http://fontawesome.io/examples/>:
 --
 -- > <fa:quote-left/3x/pull-left/border>
 --

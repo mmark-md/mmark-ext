@@ -47,8 +47,8 @@ import Text.URI.QQ (scheme)
 --
 -- The extension is not fully safe though in the sense that we can't check
 -- that a footnote reference refers to an existing footnote and that
--- footnotes have corresponding references, or that they are present in the
--- document in the right order.
+-- footnotes have the corresponding references, or that they are present in
+-- the document in the right order.
 footnotes :: Extension
 footnotes = footnoteRefs <> footnoteSection
 
@@ -73,7 +73,7 @@ footnoteRefs = Ext.inlineRender $ \old inline ->
         else old l
     other -> old other
 
--- | Create footnote section.
+-- | Create a footnote section.
 footnoteSection :: Extension
 footnoteSection = Ext.blockRender $ \old block ->
   case block of

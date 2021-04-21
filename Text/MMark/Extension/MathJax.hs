@@ -24,17 +24,16 @@ import Lucid
 import Text.MMark.Extension (Block (..), Extension, Inline (..))
 import qualified Text.MMark.Extension as Ext
 
--- | The extension allows to transform inline code spans into MathJax inline
--- spans and code blocks with the info string @\"mathjax\"@ (case-sensitive)
--- into MathJax display spans. Every line in such a code block will produce
--- a separate display span, i.e. a separate line with a formula (which is
--- probably what you want anyway).
+-- | The extension allows us to transform inline code spans into MathJax
+-- inline spans and code blocks with the info string @\"mathjax\"@
+-- (case-sensitive) into MathJax display spans. Every line in such a code
+-- block will produce a separate display span, i.e. a separate line with a
+-- formula (which is probably what you want anyway).
 --
 -- The first argument is the character that must be the first and the last
 -- character in code spans for them to be recognized as MathJax markup. If
 -- 'Nothing' is passed instead of a char, we apply the transformation to all
--- code spans (useful for more academic articles that do not deal with
--- code).
+-- code spans (useful for more academic articles that do not contain code).
 mathJax ::
   -- | Starting\/ending character in MathJax inline spans
   Maybe Char ->

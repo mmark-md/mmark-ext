@@ -57,8 +57,8 @@ tocScanner p = fmap (Toc . ($ [])) . Ext.scanner id $ \xs block ->
         then as . ((n, a) :)
         else as
 
--- | Create an extension that replaces a certain code block with previously
--- constructed table of contents.
+-- | Create an extension that replaces a certain code block with the
+-- previously constructed table of contents.
 toc ::
   -- | Label of the code block to replace by the table of contents
   Text ->
