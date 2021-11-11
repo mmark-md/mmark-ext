@@ -21,8 +21,8 @@ spec =
       context "when there is nothing but the target in title" $
         it "works as intended, no title attribute produced" $
           "[link](/url '_blank')"
-            `to` "<p><a href=\"/url\" target=\"_blank\">link</a></p>\n"
+            `to` "<p><a target=\"_blank\" href=\"/url\">link</a></p>\n"
       context "when there is also a title" $
         it "works as intended, target is stripped from the title" $
           "[link](/url '_blank something')"
-            `to` "<p><a href=\"/url\" title=\"something\" target=\"_blank\">link</a></p>\n"
+            `to` "<p><a target=\"_blank\" href=\"/url\" title=\"something\">link</a></p>\n"
