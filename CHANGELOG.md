@@ -1,3 +1,8 @@
+## Mark Ext 0.2.1.4
+
+* Prevent the test suite from failing ever again. [Issue
+  25](https://github.com/mmark-md/mmark-ext/issues/25).
+
 ## MMark Ext 0.2.1.3
 
 * The test suite passes with `modern-uri-0.3.4` and later.

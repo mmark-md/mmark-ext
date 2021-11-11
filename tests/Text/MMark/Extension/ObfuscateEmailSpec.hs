@@ -12,7 +12,7 @@ spec =
     let to = withExt (obfuscateEmail "foo")
     context "when URI has the mailto scheme" $
       it "produces the correct HTML" $
-        "<mailto:me@example.org>" `to` "<p><a href=\"javascript:void(0)\" data-email=\"me@example.org\" class=\"foo\">Enable JavaScript to see this email</a></p>\n"
+        "<mailto:me@example.org>" `to` "<p><a class=\"foo\" data-email=\"me@example.org\" href=\"javascript:void(0)\">Enable JavaScript to see this email</a></p>\n"
     context "when URI has some other scheme" $
       it "produces the correct HTML" $
         "<https:example.org>" `to` "<p><a href=\"https:example.org\">https:example.org</a></p>\n"
