@@ -20,8 +20,8 @@ withExt ::
   Text ->
   Expectation
 withExt ext input expected = do
-  let Right doc = MMark.parse "" input
-      actual =
+  Right doc <- pure (MMark.parse "" input)
+  let actual =
         TL.toStrict
           . L.renderText
           . MMark.render
