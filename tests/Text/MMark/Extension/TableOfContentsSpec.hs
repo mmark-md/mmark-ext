@@ -15,8 +15,8 @@ spec =
     it "works" $ do
       input <- TIO.readFile "data/toc.md"
       expected <- TIO.readFile "data/toc.html"
-      let Right doc = MMark.parse "" input
-          headings = MMark.runScanner doc (tocScanner (> 1))
+      Right doc <- pure (MMark.parse "" input)
+      let headings = MMark.runScanner doc (tocScanner (> 1))
           actual =
             TL.toStrict
               . L.renderText
