@@ -1,6 +1,6 @@
 cabal-version:   2.4
 name:            mmark-ext
-version:         0.2.1.4
+version:         0.2.1.5
 license:         BSD-3-Clause
 license-file:    LICENSE.md
 maintainer:      Mark Karpov <markkarpov92@gmail.com>
@@ -68,10 +68,10 @@ library
         ghc-options: -O2 -Wall
 
 test-suite tests
-    type:             exitcode-stdio-1.0
-    main-is:          Spec.hs
-    build-tools:      hspec-discover >=2.0 && <3.0
-    hs-source-dirs:   tests
+    type:               exitcode-stdio-1.0
+    main-is:            Spec.hs
+    build-tool-depends: hspec-discover:hspec-discover >=2.0 && <3.0
+    hs-source-dirs:     tests
     other-modules:
         Text.MMark.Extension.CommentSpec
         Text.MMark.Extension.FontAwesomeSpec
@@ -86,7 +86,7 @@ test-suite tests
         Text.MMark.Extension.TableOfContentsSpec
         Text.MMark.Extension.TestUtils
 
-    default-language: Haskell2010
+    default-language:   Haskell2010
     build-depends:
         base >=4.13 && <5.0,
         hspec >=2.0 && <3.0,
