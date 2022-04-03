@@ -18,6 +18,7 @@ where
 
 import Data.List.NonEmpty (NonEmpty (..))
 import Data.Text (Text)
+import qualified Data.Text as T
 import Lucid
 import Text.MMark.Extension (Extension, Inline (..))
 import qualified Text.MMark.Extension as Ext
@@ -58,7 +59,7 @@ obfuscateEmail class' = Ext.inlineRender $ \old inline ->
                 [ class_ class',
                   data_
                     "email"
-                    (URI.render email {URI.uriScheme = Nothing})
+                    (T.drop 7 (URI.render email))
                 ]
         else old l
     other -> old other
