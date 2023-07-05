@@ -24,13 +24,13 @@ module Text.MMark.Extension.TableOfContents
   )
 where
 
-import qualified Control.Foldl as L
+import Control.Foldl qualified as L
 import Data.List.NonEmpty (NonEmpty (..))
-import qualified Data.List.NonEmpty as NE
+import Data.List.NonEmpty qualified as NE
 import Data.Maybe (maybeToList)
 import Data.Text (Text)
 import Text.MMark.Extension (Block (..), Bni, Extension, Inline (..))
-import qualified Text.MMark.Extension as Ext
+import Text.MMark.Extension qualified as Ext
 
 -- | An opaque type representing table of contents produced by the
 -- 'tocScanner' scanner.

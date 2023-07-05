@@ -4,10 +4,10 @@ module Text.MMark.Extension.TestUtils
 where
 
 import Data.Text (Text)
-import qualified Data.Text.Lazy as TL
-import qualified Lucid as L
+import Data.Text.Lazy qualified as TL
+import Lucid qualified as L
 import Test.Hspec
-import qualified Text.MMark as MMark
+import Text.MMark qualified as MMark
 
 -- | Feed input into MMark parser, apply an extension, render the parsed
 -- document and demand that it matches the given example.

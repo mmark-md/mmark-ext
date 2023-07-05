@@ -21,14 +21,14 @@ where
 import Control.Monad
 import Data.Char (isDigit)
 import Data.List.NonEmpty (NonEmpty (..))
-import qualified Data.List.NonEmpty as NE
+import Data.List.NonEmpty qualified as NE
 import Data.Text (Text)
-import qualified Data.Text as T
+import Data.Text qualified as T
 import Lens.Micro ((^.))
 import Lucid
 import Text.MMark.Extension (Block (..), Extension, Inline (..), getOis)
-import qualified Text.MMark.Extension as Ext
-import qualified Text.URI as URI
+import Text.MMark.Extension qualified as Ext
+import Text.URI qualified as URI
 import Text.URI.Lens (uriPath)
 import Text.URI.QQ (scheme)
 

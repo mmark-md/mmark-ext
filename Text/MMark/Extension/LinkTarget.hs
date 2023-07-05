@@ -19,10 +19,10 @@ where
 
 import Data.Foldable (asum)
 import Data.Maybe (fromMaybe)
-import qualified Data.Text as T
+import Data.Text qualified as T
 import Lucid
 import Text.MMark.Extension (Extension, Inline (..))
-import qualified Text.MMark.Extension as Ext
+import Text.MMark.Extension qualified as Ext
 
 -- | When title of a link starts with the word @\"_blank\"@, @\"_self\"@,
 -- @\"_parent\"@, or @\"_top\"@, it's stripped from title (as well as all

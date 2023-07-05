@@ -47,7 +47,7 @@ library
         Text.MMark.Extension.Skylighting
         Text.MMark.Extension.TableOfContents
 
-    default-language: Haskell2010
+    default-language: GHC2021
     build-depends:
         base >=4.15 && <5.0,
         foldl >=1.2 && <1.5,
@@ -86,7 +86,7 @@ test-suite tests
         Text.MMark.Extension.TableOfContentsSpec
         Text.MMark.Extension.TestUtils
 
-    default-language:   Haskell2010
+    default-language:   GHC2021
     build-depends:
         base >=4.15 && <5.0,
         hspec >=2.0 && <3.0,

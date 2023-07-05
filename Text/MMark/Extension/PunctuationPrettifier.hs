@@ -18,9 +18,9 @@ where
 
 import Data.Char (isSpace)
 import Data.Text (Text)
-import qualified Data.Text as T
+import Data.Text qualified as T
 import Text.MMark.Extension (Extension, Inline (..))
-import qualified Text.MMark.Extension as Ext
+import Text.MMark.Extension qualified as Ext
 
 -- | Prettify punctuation (only affects plain text in inlines):
 --

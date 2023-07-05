@@ -18,12 +18,12 @@ where
 
 import Control.Monad
 import Data.Text (Text)
-import qualified Data.Text as T
+import Data.Text qualified as T
 import Lucid
 import Skylighting (Token, TokenType (..))
-import qualified Skylighting as S
+import Skylighting qualified as S
 import Text.MMark.Extension (Block (..), Extension)
-import qualified Text.MMark.Extension as Ext
+import Text.MMark.Extension qualified as Ext
 
 -- | Use the @skylighting@ package to render code blocks with info strings
 -- that result in a successful lookup from 'S.defaultSyntaxMap'.

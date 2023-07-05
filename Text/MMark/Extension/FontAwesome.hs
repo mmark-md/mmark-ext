@@ -16,12 +16,12 @@ module Text.MMark.Extension.FontAwesome
   )
 where
 
-import qualified Data.Text as T
+import Data.Text qualified as T
 import Lens.Micro ((^.))
 import Lucid
 import Text.MMark.Extension (Extension, Inline (..))
-import qualified Text.MMark.Extension as Ext
-import qualified Text.URI as URI
+import Text.MMark.Extension qualified as Ext
+import Text.URI qualified as URI
 import Text.URI.Lens (uriPath)
 import Text.URI.QQ (scheme)
 
