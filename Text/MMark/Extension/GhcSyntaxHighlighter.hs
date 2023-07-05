@@ -19,11 +19,11 @@ module Text.MMark.Extension.GhcSyntaxHighlighter
 where
 
 import Data.Text (Text)
-import qualified Data.Text as T
+import Data.Text qualified as T
 import GHC.SyntaxHighlighter
 import Lucid
 import Text.MMark.Extension (Block (..), Extension)
-import qualified Text.MMark.Extension as Ext
+import Text.MMark.Extension qualified as Ext
 
 -- | Use the @ghc-syntax-highlighter@ package to highlight Haskell code. The
 -- extension is applied only to code blocks with the info string

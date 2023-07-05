@@ -19,10 +19,10 @@ where
 
 import Control.Monad
 import Data.Text (Text)
-import qualified Data.Text as T
+import Data.Text qualified as T
 import Lucid
 import Text.MMark.Extension (Block (..), Extension, Inline (..))
-import qualified Text.MMark.Extension as Ext
+import Text.MMark.Extension qualified as Ext
 
 -- | The extension allows us to transform inline code spans into MathJax
 -- inline spans and code blocks with the info string @\"mathjax\"@

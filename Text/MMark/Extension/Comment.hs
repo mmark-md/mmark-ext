@@ -17,9 +17,9 @@ where
 import Control.Monad
 import Data.List.NonEmpty (NonEmpty (..))
 import Data.Text (Text)
-import qualified Data.Text as T
+import Data.Text qualified as T
 import Text.MMark.Extension (Block (..), Extension, Inline (..))
-import qualified Text.MMark.Extension as Ext
+import Text.MMark.Extension qualified as Ext
 
 -- | This extension removes top-level paragraphs starting with the given
 -- sequence of non-markup characters.

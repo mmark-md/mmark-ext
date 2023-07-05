@@ -18,11 +18,11 @@ where
 
 import Data.List.NonEmpty (NonEmpty (..))
 import Data.Text (Text)
-import qualified Data.Text as T
+import Data.Text qualified as T
 import Lucid
 import Text.MMark.Extension (Extension, Inline (..))
-import qualified Text.MMark.Extension as Ext
-import qualified Text.URI as URI
+import Text.MMark.Extension qualified as Ext
+import Text.URI qualified as URI
 import Text.URI.QQ (scheme, uri)
 
 -- | This extension makes email addresses in autolinks be rendered as

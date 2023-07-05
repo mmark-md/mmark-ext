@@ -2,11 +2,11 @@
 
 module Text.MMark.Extension.TableOfContentsSpec (spec) where
 
-import qualified Data.Text.IO as TIO
-import qualified Data.Text.Lazy as TL
-import qualified Lucid as L
+import Data.Text.IO qualified as TIO
+import Data.Text.Lazy qualified as TL
+import Lucid qualified as L
 import Test.Hspec
-import qualified Text.MMark as MMark
+import Text.MMark qualified as MMark
 import Text.MMark.Extension.TableOfContents
 
 spec :: Spec
