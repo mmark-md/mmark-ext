@@ -18,8 +18,8 @@ jobs:
     needs: ormolu
     strategy:
       matrix:
-        cabal: ["3.8"]
-        ghc: ["9.0.2", "9.2.5", "9.4.4"]
+        cabal: ["3.10"]
+        ghc: ["9.2.8", "9.4.5", "9.6.2"]
     env:
       CONFIG: "--enable-tests --enable-benchmarks --flags=dev"
     steps:
@@ -43,4 +43,6 @@ jobs:
       - run: cabal build $CONFIG
       - run: cabal test $CONFIG
       - run: cabal haddock $CONFIG
+        # Haddock fails to build, see https://github.com/haskell/cabal/issues/9060
+        if: ${{ matrix.ghc != '9.2.8' }}
       - run: cabal sdist
