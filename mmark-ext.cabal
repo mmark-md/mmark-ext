@@ -54,7 +54,7 @@ library
         ghc-syntax-highlighter >=0.0.1 && <0.1,
         lucid >=2.9.13 && <3,
         microlens >=0.4 && <0.6,
-        mmark >=0.0.4 && <=0.1,
+        mmark >=0.0.4 && <0.1,
         modern-uri >=0.3.4.4 && <0.4,
         skylighting >=0.7.6 && <0.15,
         text >=0.2 && <2.2
@@ -91,7 +91,7 @@ test-suite tests
         base >=4.15 && <5,
         hspec >=2 && <3,
         lucid >=2.9.13 && <3,
-        mmark >=0.0.4 && <=0.1,
+        mmark >=0.0.4 && <0.1,
         mmark-ext,
         text >=0.2 && <2.2
 
