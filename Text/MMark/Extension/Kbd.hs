@@ -30,7 +30,7 @@ import Text.URI.QQ (scheme)
 -- > [kbd]: kbd:
 --
 -- The use of reference-style links seems more aesthetically pleasant to me,
--- but you can of course do somethnig like this instead:
+-- but you can of course do something like this instead:
 --
 -- > To enable that mode press [Ctrl+A](kbd:).
 kbd :: Extension

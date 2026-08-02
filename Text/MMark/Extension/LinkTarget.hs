@@ -24,10 +24,10 @@ import Lucid
 import Text.MMark.Extension (Extension, Inline (..))
 import Text.MMark.Extension qualified as Ext
 
--- | When title of a link starts with the word @\"_blank\"@, @\"_self\"@,
--- @\"_parent\"@, or @\"_top\"@, it's stripped from title (as well as all
--- whitespace after it) and added as the value of @target@ attribute of the
--- resulting link.
+-- | When the title of a link starts with the word @\"_blank\"@,
+-- @\"_self\"@, @\"_parent\"@, or @\"_top\"@, it's stripped from the title (as
+-- well as all whitespace after it) and added as the value of the @target@
+-- attribute of the resulting link.
 --
 -- For example:
 --

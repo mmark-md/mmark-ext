@@ -49,8 +49,8 @@ import Text.MMark.Extension qualified as Ext
 -- To use with 'Text.MMark.Extension.Skylighting.skylighting' the extension
 -- should be applied /after/ the
 -- 'Text.MMark.Extension.Skylighting.skylighting' extension so it can
--- overwrite its logic for code block with @\"haskell\"@ info string. So
--- place it on the left hand side of @('<>')@ or above
+-- overwrite its logic for a code block with the @\"haskell\"@ info string.
+-- So place it on the left hand side of @('<>')@ or above
 -- 'Text.MMark.Extension.Skylighting.skylighting' in the list passed to
 -- 'Text.MMark.useExtensions'.
 ghcSyntaxHighlighter :: Extension

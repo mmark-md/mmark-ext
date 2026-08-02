@@ -14,7 +14,7 @@
 -- > import qualified Text.MMark.Extension.Common as Ext
 --
 -- Here is an example that uses several extensions from this module at the
--- same time, it should give you an idea where to start:
+-- same time; it should give you an idea where to start:
 --
 -- > {-# LANGUAGE OverloadedStrings #-}
 -- >

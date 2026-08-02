@@ -9,8 +9,8 @@
 -- Stability   :  experimental
 -- Portability :  portable
 --
--- Place this markup in markdown document where you want table of contents
--- to be inserted:
+-- Place this markup in a markdown document where you want a table of
+-- contents to be inserted:
 --
 -- > ```toc
 -- > ```
@@ -32,11 +32,11 @@ import Data.Text (Text)
 import Text.MMark.Extension (Block (..), Bni, Extension, Inline (..))
 import Text.MMark.Extension qualified as Ext
 
--- | An opaque type representing table of contents produced by the
+-- | An opaque type representing a table of contents produced by the
 -- 'tocScanner' scanner.
 newtype Toc = Toc [(Int, NonEmpty Inline)]
 
--- | The scanner builds table of contents 'Toc' that can then be passed to
+-- | The scanner builds a table of contents 'Toc' that can then be passed to
 -- 'toc' to obtain an extension that renders the table of contents in HTML.
 tocScanner ::
   -- | Whether to include a header of this level (1–6)
@@ -75,7 +75,7 @@ toc label (Toc xs) = Ext.blockTrans $ \case
           else old
   other -> other
 
--- | Construct 'Bni' for a table of contents from given collection of
+-- | Construct 'Bni' for a table of contents from a given collection of
 -- headers. This is a non-public helper.
 renderToc :: NonEmpty (Int, NonEmpty Inline) -> Bni
 renderToc = UnorderedList . NE.unfoldr f
