@@ -19,8 +19,8 @@ where
 import Data.Char (isSpace)
 import Data.Text (Text)
 import Data.Text qualified as T
-import Text.MMark.Extension (Extension, Inline (..))
-import Text.MMark.Extension qualified as Ext
+import Text.MMark.Trans (Bni, Inline (..), Trans)
+import Text.MMark.Trans qualified as Trans
 
 -- | Prettify punctuation (only affects plain text in inlines):
 --
@@ -32,10 +32,10 @@ import Text.MMark.Extension qualified as Ext
 --     * Replace @'@ with left single quote @‘@ when previous character was
 --       a space character, otherwise replace it with right single quote @’@
 --       aka apostrophe
-punctuationPrettifier :: Extension
-punctuationPrettifier = Ext.inlineTrans $ \case
-  Plain txt -> Plain (T.unfoldr gen (True, txt))
-  other -> other
+punctuationPrettifier :: Bni -> Trans Bni
+punctuationPrettifier = Trans.bottomUpInlines $ \case
+  Plain spn txt -> return (Plain spn (T.unfoldr gen (True, txt)))
+  other -> return other
 
 gen ::
   -- | Whether the previous character was a space and remaining input

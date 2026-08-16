@@ -1,3 +1,25 @@
+## Unpublished
+
+* The package now requires `mmark-0.1` or later.
+
+* Added the following modules:
+
+    * `Text.MMark.Extension.Emoji`
+    * `Text.MMark.Extension.Heading`
+    * `Text.MMark.Extension.Icons`
+    * `Text.MMark.Extension.Image`
+    * `Text.MMark.Extension.LineHighlight`
+    * `Text.MMark.Extension.Link`
+    * `Text.MMark.Extension.Mermaid`
+    * `Text.MMark.Extension.Metadata`
+    * `Text.MMark.Extension.Permalinks`
+
+* Removed the following modules:
+
+    * `Text.MMark.Extension.FontAwesome`
+    * `Text.MMark.Extension.LinkTarget`
+    * `Text.MMark.Extension.ObfuscateEmail`
+
 ## MMark Ext 0.2.1.5
 
 * The test suite now passes with `modern-uri-0.3.4.4`.

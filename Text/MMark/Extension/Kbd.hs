@@ -16,8 +16,8 @@ module Text.MMark.Extension.Kbd
 where
 
 import Lucid
-import Text.MMark.Extension (Extension, Inline (..))
-import Text.MMark.Extension qualified as Ext
+import Text.MMark.Render (Inline (..), RenderExtension)
+import Text.MMark.Render qualified as Ext
 import Text.URI qualified as URI
 import Text.URI.QQ (scheme)
 
@@ -33,10 +33,10 @@ import Text.URI.QQ (scheme)
 -- but you can of course do something like this instead:
 --
 -- > To enable that mode press [Ctrl+A](kbd:).
-kbd :: Extension
+kbd :: RenderExtension
 kbd = Ext.inlineRender $ \old inline ->
   case inline of
-    l@(Link inner uri _) ->
+    l@(Link _ inner uri _) ->
       if URI.uriScheme uri == Just [scheme|kbd|]
         then kbd_ (mapM_ old inner)
         else old l

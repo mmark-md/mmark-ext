@@ -9,7 +9,7 @@ import Text.MMark.Extension.TestUtils
 spec :: Spec
 spec =
   describe "punctuationPrettifier" $ do
-    let to = withExt punctuationPrettifier
+    let to = withTrans punctuationPrettifier
     context "on plain inlines" $ do
       it "replaces ... with ellipsis" $
         "He forgot where he came from..." `to` "<p>He forgot where he came from…</p>\n"
