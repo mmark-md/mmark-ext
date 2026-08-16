@@ -20,6 +20,7 @@
 -- >
 -- > module Main (main) where
 -- >
+-- > import           Control.Monad               ((>=>))
 -- > import qualified Data.Text.IO                as T
 -- > import qualified Data.Text.Lazy.IO           as TL
 -- > import qualified Lucid                       as L
@@ -33,25 +34,36 @@
 -- >   txt <- T.readFile input
 -- >   case MMark.parse input txt of
 -- >     Left bundle -> putStrLn (M.errorBundlePretty bundle)
--- >     Right r ->
--- >       let toc = MMark.runScanner r (Ext.tocScanner (> 1))
--- >       in TL.writeFile "output.html"
--- >           . L.renderText
--- >           . MMark.render
--- >           . MMark.useExtensions
--- >               [ Ext.toc "toc" toc
--- >               , Ext.punctuationPrettifier
--- >               , Ext.skylighting ]
--- >           $ r
+-- >     Right r -> do
+-- >       let toc = MMark.runScanner (Ext.tocScanner (> 1)) r
+-- >           fns = MMark.runScanner Ext.footnoteScanner r
+-- >           trans = Ext.toc "toc" toc >=> Ext.punctuationPrettifier
+-- >           renderExts = Ext.skylighting <> Ext.footnotes
+-- >       case MMark.runCheck (Ext.validateFootnotes fns) r of
+-- >         Left errs -> putStrLn (M.errorBundlePretty errs)
+-- >         Right () -> return ()
+-- >       case MMark.runTrans trans r of
+-- >         Left errs -> putStrLn (M.errorBundlePretty errs)
+-- >         Right r' ->
+-- >           TL.writeFile "output.html"
+-- >             . L.renderText
+-- >             . MMark.render renderExts
+-- >             $ r'
 module Text.MMark.Extension.Common
   ( module Text.MMark.Extension.Comment,
-    module Text.MMark.Extension.FontAwesome,
+    module Text.MMark.Extension.Emoji,
     module Text.MMark.Extension.Footnotes,
     module Text.MMark.Extension.GhcSyntaxHighlighter,
+    module Text.MMark.Extension.Heading,
+    module Text.MMark.Extension.Icons,
+    module Text.MMark.Extension.Image,
     module Text.MMark.Extension.Kbd,
-    module Text.MMark.Extension.LinkTarget,
+    module Text.MMark.Extension.LineHighlight,
+    module Text.MMark.Extension.Link,
     module Text.MMark.Extension.MathJax,
-    module Text.MMark.Extension.ObfuscateEmail,
+    module Text.MMark.Extension.Mermaid,
+    module Text.MMark.Extension.Metadata,
+    module Text.MMark.Extension.Permalinks,
     module Text.MMark.Extension.PunctuationPrettifier,
     module Text.MMark.Extension.Skylighting,
     module Text.MMark.Extension.TableOfContents,
@@ -59,13 +71,19 @@ module Text.MMark.Extension.Common
 where
 
 import Text.MMark.Extension.Comment
-import Text.MMark.Extension.FontAwesome
+import Text.MMark.Extension.Emoji
 import Text.MMark.Extension.Footnotes
 import Text.MMark.Extension.GhcSyntaxHighlighter
+import Text.MMark.Extension.Heading
+import Text.MMark.Extension.Icons
+import Text.MMark.Extension.Image
 import Text.MMark.Extension.Kbd
-import Text.MMark.Extension.LinkTarget
+import Text.MMark.Extension.LineHighlight
+import Text.MMark.Extension.Link
 import Text.MMark.Extension.MathJax
-import Text.MMark.Extension.ObfuscateEmail
+import Text.MMark.Extension.Mermaid
+import Text.MMark.Extension.Metadata
+import Text.MMark.Extension.Permalinks
 import Text.MMark.Extension.PunctuationPrettifier
 import Text.MMark.Extension.Skylighting
 import Text.MMark.Extension.TableOfContents

@@ -22,8 +22,9 @@ import Data.Text qualified as T
 import Lucid
 import Skylighting (Token, TokenType (..))
 import Skylighting qualified as S
-import Text.MMark.Extension (Block (..), Extension)
-import Text.MMark.Extension qualified as Ext
+import Text.MMark.Extension.Internal (infoStringParts, withLineHighlight)
+import Text.MMark.Render (Block (..), RenderExtension)
+import Text.MMark.Render qualified as Ext
 
 -- | Use the @skylighting@ package to render code blocks with info strings
 -- that result in a successful lookup from 'S.defaultSyntaxMap'.
@@ -61,16 +62,22 @@ import Text.MMark.Extension qualified as Ext
 --     * 'VariableTok'       = @\"va\"@
 --     * 'VerbatimStringTok' = @\"vs\"@
 --     * 'WarningTok'        = @\"wa\"@
-skylighting :: Extension
+--
+-- The info string may end with a line specification, as in @haskell {2,4-6}@
+-- (see 'Text.MMark.Extension.LineHighlight.lineHighlight'). It does not stop
+-- the language from being recognized, and the lines it names are given the
+-- class @\"highlighted-line\"@ around the tokens of the line.
+skylighting :: RenderExtension
 skylighting = Ext.blockRender $ \old block ->
   case block of
-    cb@(CodeBlock (Just infoString') txt) ->
+    cb@(CodeBlock _ (Just infoString') txt) ->
       let tokenizerConfig =
             S.TokenizerConfig
               { S.syntaxMap = S.defaultSyntaxMap,
                 S.traceOutput = False
               }
-          infoString = T.replace "-" " " infoString'
+          (lang, highlighted) = infoStringParts infoString'
+          infoString = maybe "" (T.replace "-" " ") lang
        in case S.lookupSyntax infoString S.defaultSyntaxMap of
             Nothing -> old cb
             Just syntax ->
@@ -80,10 +87,11 @@ skylighting = Ext.blockRender $ \old block ->
                   div_ [class_ "source-code"]
                     . pre_
                     . code_ [class_ ("language-" <> infoString)]
-                    . forM_ ls
-                    $ \l -> do
-                      mapM_ tokenToHtml l
-                      newline
+                    . forM_ (zip [1 ..] ls)
+                    $ \(n, l) ->
+                      withLineHighlight highlighted n $ do
+                        mapM_ tokenToHtml l
+                        newline
                   newline
     other -> old other
   where

@@ -18,20 +18,20 @@ import Control.Monad
 import Data.List.NonEmpty (NonEmpty (..))
 import Data.Text (Text)
 import Data.Text qualified as T
-import Text.MMark.Extension (Block (..), Extension, Inline (..))
-import Text.MMark.Extension qualified as Ext
+import Text.MMark.Render (Block (..), Inline (..), RenderExtension)
+import Text.MMark.Render qualified as Ext
 
 -- | This extension removes top-level paragraphs starting with the given
 -- sequence of non-markup characters.
 commentParagraph ::
   -- | Sequence of characters that starts a comment
   Text ->
-  Extension
+  RenderExtension
 commentParagraph commentPrefix = Ext.blockRender $ \old block ->
   case block of
-    p@(Paragraph (ois, _)) ->
+    p@(Paragraph _ (ois, _)) ->
       case Ext.getOis ois of
-        (Plain txt :| _) ->
+        (Plain _ txt :| _) ->
           unless (commentPrefix `T.isPrefixOf` txt) $
             old p
         _ -> old p

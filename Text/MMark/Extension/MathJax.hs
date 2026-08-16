@@ -21,8 +21,8 @@ import Control.Monad
 import Data.Text (Text)
 import Data.Text qualified as T
 import Lucid
-import Text.MMark.Extension (Block (..), Extension, Inline (..))
-import Text.MMark.Extension qualified as Ext
+import Text.MMark.Render (Block (..), Inline (..), RenderExtension)
+import Text.MMark.Render qualified as Ext
 
 -- | The extension allows us to transform inline code spans into MathJax
 -- inline spans and code blocks with the info string @\"mathjax\"@
@@ -37,16 +37,16 @@ import Text.MMark.Extension qualified as Ext
 mathJax ::
   -- | Starting\/ending character in MathJax inline spans
   Maybe Char ->
-  Extension
+  RenderExtension
 mathJax mch = mathJaxSpan mch <> mathJaxBlock
 
 -- | Turn code spans that start and end with a given character into MathJax
 -- inline spans. If 'Nothing' is provided instead of a char, apply the
 -- transformation to all code spans.
-mathJaxSpan :: Maybe Char -> Extension
+mathJaxSpan :: Maybe Char -> RenderExtension
 mathJaxSpan mch = Ext.inlineRender $ \old inline ->
   case inline of
-    s@(CodeSpan txt) ->
+    s@(CodeSpan _ txt) ->
       case mch of
         Nothing -> spn txt
         Just ch ->
@@ -62,10 +62,10 @@ mathJaxSpan mch = Ext.inlineRender $ \old inline ->
 
 -- | Turn code blocks with info string @\"mathjax\"@ into MathJax display
 -- spans.
-mathJaxBlock :: Extension
+mathJaxBlock :: RenderExtension
 mathJaxBlock = Ext.blockRender $ \old block ->
   case block of
-    b@(CodeBlock mlabel txt) ->
+    b@(CodeBlock _ mlabel txt) ->
       if mlabel == Just "mathjax"
         then do
           p_ . forM_ (T.lines txt) $ \x ->
