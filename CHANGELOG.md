@@ -1,4 +1,4 @@
-## Unpublished
+## MMark Ext 0.3.0.0
 
 * The package now requires `mmark-0.1` or later.
 
