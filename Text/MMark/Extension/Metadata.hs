@@ -97,5 +97,5 @@ readingTime ::
   -- | Collected metadata
   Metadata ->
   Int
-readingTime wpm Metadata {..} =
+readingTime wpm Metadata{..} =
   max 1 ((metaWords + wpm - 1) `div` wpm)

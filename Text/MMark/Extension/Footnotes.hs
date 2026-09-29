@@ -146,7 +146,7 @@ footnoteScanner = MMark.scanner mempty $ \acc block ->
 -- >   Left errs -> putStrLn (errorBundlePretty errs)
 -- >   Right () -> …
 validateFootnotes :: Footnotes -> Trans ()
-validateFootnotes Footnotes {..} = do
+validateFootnotes Footnotes{..} = do
   forM_ (drop 1 fnSections) $ \spn ->
     Trans.report spn "there is more than one footnote section"
   forM_ fnMalformed $ \spn ->
@@ -192,8 +192,8 @@ scanInlines = foldMap go
       l@(Link spn inner uri _)
         | URI.uriScheme uri == Just [scheme|footnote|] ->
             case footnoteRef uri of
-              Just n -> mempty {fnReferenced = M.singleton n [spn]}
-              Nothing -> mempty {fnMalformed = [Trans.inlineSpan l]}
+              Just n -> mempty{fnReferenced = M.singleton n [spn]}
+              Nothing -> mempty{fnMalformed = [Trans.inlineSpan l]}
         | otherwise -> foldMap go inner
       Emphasis _ xs -> foldMap go xs
       Strong _ xs -> foldMap go xs

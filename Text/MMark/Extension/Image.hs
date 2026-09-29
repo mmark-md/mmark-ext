@@ -55,7 +55,7 @@ import Text.URI (URI)
 lazyImages :: RenderExtension
 lazyImages = Render.inlineRender $ \old inline ->
   case inline of
-    i@Image {} ->
+    i@Image{} ->
       with
         (old i)
         [ makeAttribute "loading" "lazy",
